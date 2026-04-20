@@ -350,7 +350,7 @@ if (leadCaptureForm) {
 
       const result = await response.json();
 
-      const isSuccess = result && (result.success === true || result.success === 'true');
+      const isSuccess = String(result?.success).toLowerCase() === 'true';
       if (!response.ok || !isSuccess) {
         throw new Error(result.message || 'Submission failed');
       }
