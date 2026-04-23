@@ -315,12 +315,15 @@ const revealObserver = new IntersectionObserver(entries => {
 
 document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
 
-// Contact form submission (email delivery)
+// Contact form submission (WhatsApp click-to-chat)
 const leadCaptureForm = document.getElementById('leadCaptureForm');
 const leadFormStatus = document.getElementById('leadFormStatus');
+const whatsappHref = document.querySelector('.wa-btn')?.getAttribute('href') || '';
+const whatsappLeadNumber = whatsappHref.match(/wa\.me\/(\d+)/i)?.[1] || '';
+const formatFieldLabel = key => key.replace(/_/g, ' ').replace(/\b\w/g, char => char.toUpperCase());
 
 if (leadCaptureForm) {
-  leadCaptureForm.addEventListener('submit', async e => {
+  leadCaptureForm.addEventListener('submit', e => {
     e.preventDefault();
 
     if (!leadCaptureForm.checkValidity()) {
@@ -333,35 +336,53 @@ if (leadCaptureForm) {
 
     if (submitBtn) {
       submitBtn.disabled = true;
-      submitBtn.innerHTML = '⏳ Sending...';
+      submitBtn.innerHTML = '⏳ Opening WhatsApp...';
     }
 
     if (leadFormStatus) {
-      leadFormStatus.textContent = 'Submitting your message...';
+      leadFormStatus.textContent = 'Preparing your WhatsApp message...';
     }
 
     try {
       const formData = new FormData(leadCaptureForm);
-      const response = await fetch('https://formsubmit.co/ajax/prasadshinde10102004@gmail.com', {
-        method: 'POST',
-        headers: { Accept: 'application/json' },
-        body: formData
-      });
+      const fieldLabelMap = {
+        name: 'Name',
+        phone: 'Phone',
+        email: 'Email',
+        business_type: 'Business Type',
+        message: 'Message'
+      };
+      const allowedLeadFields = Object.keys(fieldLabelMap);
 
-      const result = await response.json();
+      const leadDetails = allowedLeadFields
+        .map(key => [key, formData.get(key)])
+        .filter(([, value]) => String(value || '').trim() !== '')
+        .map(([key, value]) => {
+          const label = fieldLabelMap[key] || formatFieldLabel(key);
+          return `${label}: ${String(value).trim()}`;
+        });
 
-      const isSuccess = String(result?.success).toLowerCase() === 'true';
-      if (!response.ok || !isSuccess) {
-        throw new Error(result.message || 'Submission failed');
+      const whatsappMessage = [
+        'New Lead from Webmitra Website:',
+        ...leadDetails
+      ].join('\n');
+
+      if (!whatsappLeadNumber) {
+        throw new Error('WhatsApp number unavailable');
       }
 
-      leadCaptureForm.reset();
+      const whatsappUrl = `https://wa.me/${whatsappLeadNumber}?text=${encodeURIComponent(whatsappMessage)}`;
+      const whatsappWindow = window.open(whatsappUrl, '_blank', 'noopener,noreferrer');
+      if (!whatsappWindow) {
+        throw new Error('WhatsApp popup blocked');
+      }
+
       if (leadFormStatus) {
-        leadFormStatus.textContent = "✅ Message sent successfully! We'll contact you soon.";
+        leadFormStatus.textContent = "✅ WhatsApp opened with your message. Please tap Send to complete (form kept as-is until you send).";
       }
     } catch (error) {
       if (leadFormStatus) {
-        leadFormStatus.textContent = '❌ Failed to send message. Please try again or contact us on WhatsApp.';
+        leadFormStatus.textContent = '❌ Could not open WhatsApp (popup may be blocked). Please allow popups or use the chat button.';
       }
     } finally {
       if (submitBtn) {
