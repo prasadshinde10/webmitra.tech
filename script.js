@@ -315,12 +315,13 @@ const revealObserver = new IntersectionObserver(entries => {
 
 document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
 
-// Contact form submission (email delivery)
+// Contact form submission (WhatsApp click-to-chat)
 const leadCaptureForm = document.getElementById('leadCaptureForm');
 const leadFormStatus = document.getElementById('leadFormStatus');
+const whatsappLeadNumber = '918411825361';
 
 if (leadCaptureForm) {
-  leadCaptureForm.addEventListener('submit', async e => {
+  leadCaptureForm.addEventListener('submit', e => {
     e.preventDefault();
 
     if (!leadCaptureForm.checkValidity()) {
@@ -333,35 +334,45 @@ if (leadCaptureForm) {
 
     if (submitBtn) {
       submitBtn.disabled = true;
-      submitBtn.innerHTML = '⏳ Sending...';
+      submitBtn.innerHTML = '⏳ Opening WhatsApp...';
     }
 
     if (leadFormStatus) {
-      leadFormStatus.textContent = 'Submitting your message...';
+      leadFormStatus.textContent = 'Preparing your WhatsApp message...';
     }
 
     try {
       const formData = new FormData(leadCaptureForm);
-      const response = await fetch('https://formsubmit.co/ajax/prasadshinde10102004@gmail.com', {
-        method: 'POST',
-        headers: { Accept: 'application/json' },
-        body: formData
-      });
+      const fieldLabelMap = {
+        name: 'Name',
+        phone: 'Phone',
+        email: 'Email',
+        business_type: 'Business Type',
+        message: 'Message'
+      };
 
-      const result = await response.json();
+      const leadDetails = Array.from(formData.entries())
+        .filter(([key, value]) => !key.startsWith('_') && String(value).trim() !== '')
+        .map(([key, value]) => {
+          const label = fieldLabelMap[key] || key.replace(/_/g, ' ').replace(/\b\w/g, char => char.toUpperCase());
+          return `${label}: ${String(value).trim()}`;
+        });
 
-      const isSuccess = String(result?.success).toLowerCase() === 'true';
-      if (!response.ok || !isSuccess) {
-        throw new Error(result.message || 'Submission failed');
-      }
+      const whatsappMessage = [
+        'New Lead from Webmitra Website:',
+        ...leadDetails
+      ].join('\n');
+
+      const whatsappUrl = `https://wa.me/${whatsappLeadNumber}?text=${encodeURIComponent(whatsappMessage)}`;
+      window.open(whatsappUrl, '_blank', 'noopener,noreferrer');
 
       leadCaptureForm.reset();
       if (leadFormStatus) {
-        leadFormStatus.textContent = "✅ Message sent successfully! We'll contact you soon.";
+        leadFormStatus.textContent = "✅ WhatsApp opened with your message. Please tap Send to complete.";
       }
     } catch (error) {
       if (leadFormStatus) {
-        leadFormStatus.textContent = '❌ Failed to send message. Please try again or contact us on WhatsApp.';
+        leadFormStatus.textContent = '❌ Could not open WhatsApp. Please try again or use the chat button.';
       }
     } finally {
       if (submitBtn) {
