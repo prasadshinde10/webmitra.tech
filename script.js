@@ -319,7 +319,8 @@ document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
 const leadCaptureForm = document.getElementById('leadCaptureForm');
 const leadFormStatus = document.getElementById('leadFormStatus');
 const whatsappHref = document.querySelector('.wa-btn')?.getAttribute('href') || '';
-const whatsappLeadNumber = whatsappHref.match(/wa\.me\/(\d+)/i)?.[1] || '918411825361';
+const whatsappLeadNumber = whatsappHref.match(/wa\.me\/(\d+)/i)?.[1] || '';
+const formatFieldLabel = key => key.replace(/_/g, ' ').replace(/\b\w/g, char => char.toUpperCase());
 
 if (leadCaptureForm) {
   leadCaptureForm.addEventListener('submit', e => {
@@ -355,7 +356,7 @@ if (leadCaptureForm) {
       const leadDetails = Array.from(formData.entries())
         .filter(([key, value]) => !key.startsWith('_') && String(value).trim() !== '')
         .map(([key, value]) => {
-          const label = fieldLabelMap[key] || key.replace(/_/g, ' ').replace(/\b\w/g, char => char.toUpperCase());
+          const label = fieldLabelMap[key] || formatFieldLabel(key);
           return `${label}: ${String(value).trim()}`;
         });
 
@@ -364,9 +365,13 @@ if (leadCaptureForm) {
         ...leadDetails
       ].join('\n');
 
+      if (!whatsappLeadNumber) {
+        throw new Error('WhatsApp number unavailable');
+      }
+
       const whatsappUrl = `https://wa.me/${whatsappLeadNumber}?text=${encodeURIComponent(whatsappMessage)}`;
       const whatsappWindow = window.open(whatsappUrl, '_blank', 'noopener,noreferrer');
-      if (!whatsappWindow) {
+      if (!whatsappWindow || whatsappWindow.closed) {
         throw new Error('WhatsApp popup blocked');
       }
 
