@@ -318,7 +318,8 @@ document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
 // Contact form submission (WhatsApp click-to-chat)
 const leadCaptureForm = document.getElementById('leadCaptureForm');
 const leadFormStatus = document.getElementById('leadFormStatus');
-const whatsappLeadNumber = '918411825361';
+const whatsappHref = document.querySelector('.wa-btn')?.getAttribute('href') || '';
+const whatsappLeadNumber = whatsappHref.match(/wa\.me\/(\d+)/i)?.[1] || '918411825361';
 
 if (leadCaptureForm) {
   leadCaptureForm.addEventListener('submit', e => {
@@ -364,7 +365,10 @@ if (leadCaptureForm) {
       ].join('\n');
 
       const whatsappUrl = `https://wa.me/${whatsappLeadNumber}?text=${encodeURIComponent(whatsappMessage)}`;
-      window.open(whatsappUrl, '_blank', 'noopener,noreferrer');
+      const whatsappWindow = window.open(whatsappUrl, '_blank', 'noopener,noreferrer');
+      if (!whatsappWindow) {
+        throw new Error('WhatsApp popup blocked');
+      }
 
       leadCaptureForm.reset();
       if (leadFormStatus) {
@@ -372,7 +376,7 @@ if (leadCaptureForm) {
       }
     } catch (error) {
       if (leadFormStatus) {
-        leadFormStatus.textContent = '❌ Could not open WhatsApp. Please try again or use the chat button.';
+        leadFormStatus.textContent = '❌ Could not open WhatsApp (popup may be blocked). Please allow popups or use the chat button.';
       }
     } finally {
       if (submitBtn) {
