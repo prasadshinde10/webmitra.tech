@@ -352,9 +352,11 @@ if (leadCaptureForm) {
         business_type: 'Business Type',
         message: 'Message'
       };
+      const allowedLeadFields = Object.keys(fieldLabelMap);
 
-      const leadDetails = Array.from(formData.entries())
-        .filter(([key, value]) => !key.startsWith('_') && String(value).trim() !== '')
+      const leadDetails = allowedLeadFields
+        .map(key => [key, formData.get(key)])
+        .filter(([, value]) => String(value || '').trim() !== '')
         .map(([key, value]) => {
           const label = fieldLabelMap[key] || formatFieldLabel(key);
           return `${label}: ${String(value).trim()}`;
@@ -371,13 +373,12 @@ if (leadCaptureForm) {
 
       const whatsappUrl = `https://wa.me/${whatsappLeadNumber}?text=${encodeURIComponent(whatsappMessage)}`;
       const whatsappWindow = window.open(whatsappUrl, '_blank', 'noopener,noreferrer');
-      if (!whatsappWindow || whatsappWindow.closed) {
+      if (!whatsappWindow) {
         throw new Error('WhatsApp popup blocked');
       }
 
-      leadCaptureForm.reset();
       if (leadFormStatus) {
-        leadFormStatus.textContent = "✅ WhatsApp opened with your message. Please tap Send to complete.";
+        leadFormStatus.textContent = "✅ WhatsApp opened with your message. Please tap Send to complete (form kept as-is until you send).";
       }
     } catch (error) {
       if (leadFormStatus) {
