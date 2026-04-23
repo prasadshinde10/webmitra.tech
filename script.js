@@ -315,24 +315,59 @@ const revealObserver = new IntersectionObserver(entries => {
 
 document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
 
-// Contact form feedback (mock)
-function handleFormSubmit(btn) {
-  const originalText = btn.innerHTML;
+// Contact form submission (email delivery)
+const leadCaptureForm = document.getElementById('leadCaptureForm');
+const leadFormStatus = document.getElementById('leadFormStatus');
 
-  btn.innerHTML = '⏳ Sending...';
-  btn.disabled = true;
+if (leadCaptureForm) {
+  leadCaptureForm.addEventListener('submit', async e => {
+    e.preventDefault();
 
-  setTimeout(() => {
-    btn.innerHTML = "✅ Sent! We'll reply soon.";
-    btn.style.background = '#22c55e';
-    btn.style.color = '#fff';
+    if (!leadCaptureForm.checkValidity()) {
+      leadCaptureForm.reportValidity();
+      return;
+    }
 
-    setTimeout(() => {
-      btn.innerHTML = originalText;
-      btn.style.background = '';
-      btn.style.color = '';
-      btn.disabled = false;
-    }, 3500);
-  }, 1200);
+    const submitBtn = leadCaptureForm.querySelector('.form-submit-btn');
+    const originalBtnHtml = submitBtn ? submitBtn.innerHTML : '';
+
+    if (submitBtn) {
+      submitBtn.disabled = true;
+      submitBtn.innerHTML = '⏳ Sending...';
+    }
+
+    if (leadFormStatus) {
+      leadFormStatus.textContent = 'Submitting your message...';
+    }
+
+    try {
+      const formData = new FormData(leadCaptureForm);
+      const response = await fetch('https://formsubmit.co/ajax/prasadshinde10102004@gmail.com', {
+        method: 'POST',
+        headers: { Accept: 'application/json' },
+        body: formData
+      });
+
+      const result = await response.json();
+
+      const isSuccess = String(result?.success).toLowerCase() === 'true';
+      if (!response.ok || !isSuccess) {
+        throw new Error(result.message || 'Submission failed');
+      }
+
+      leadCaptureForm.reset();
+      if (leadFormStatus) {
+        leadFormStatus.textContent = "✅ Message sent successfully! We'll contact you soon.";
+      }
+    } catch (error) {
+      if (leadFormStatus) {
+        leadFormStatus.textContent = '❌ Failed to send message. Please try again or contact us on WhatsApp.';
+      }
+    } finally {
+      if (submitBtn) {
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = originalBtnHtml;
+      }
+    }
+  });
 }
-window.handleFormSubmit = handleFormSubmit;
