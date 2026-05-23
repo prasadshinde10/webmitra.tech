@@ -1216,6 +1216,8 @@ footer {
   .hero-profile { order: -1; } /* move image on top */
   .profile-card { max-width: 360px; }
   .hero-agency { padding: 96px 0; }
+  .hero-agency .hero-title { font-size: 2.8rem; }
+  .hero-agency .hero-sub { font-size: 1.1rem; margin-bottom: 32px; }
 
   .why-grid, .about-grid, .contact-grid { grid-template-columns: 1fr; gap: 28px; }
   .industries-grid, .services-grid { grid-template-columns: 1fr; }
@@ -1235,4 +1237,6 @@ footer {
 
   .profile-img { width: 200px; height: 200px; }
   .hero-agency { padding: 80px 0; }
+  .hero-agency .hero-title { font-size: 2rem; }
+  .hero-agency .hero-sub { font-size: 1rem; margin-bottom: 28px; }
 }
