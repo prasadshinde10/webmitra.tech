@@ -489,6 +489,60 @@ ul { list-style: none; }
   color: var(--text-muted);
 }
 
+/* Agency Hero Styles */
+.hero-agency {
+  padding: 120px 0;
+  background: #0f172a; /* Dark, professional agency background */
+  color: white;
+  text-align: center;
+}
+
+.hero-content {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.hero-badge {
+  background: rgba(255, 255, 255, 0.1);
+  padding: 8px 16px;
+  border-radius: 20px;
+  display: inline-block;
+  margin-bottom: 20px;
+  font-size: 0.85rem;
+  letter-spacing: 1px;
+}
+
+.hero-title {
+  font-family: 'Syne', sans-serif;
+  font-size: 3.5rem;
+  line-height: 1.1;
+  margin-bottom: 24px;
+}
+
+.hero-title span {
+  color: #38bdf8; /* Modern blue accent */
+}
+
+.hero-sub {
+  font-size: 1.25rem;
+  color: #94a3b8;
+  margin-bottom: 40px;
+}
+
+.hero-actions {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+}
+
+.trust-icons {
+  display: flex;
+  gap: 24px;
+  justify-content: center;
+  margin-top: 30px;
+  opacity: 0.7;
+}
+
 /* ============================================================
    Stats bar
    ============================================================ */
