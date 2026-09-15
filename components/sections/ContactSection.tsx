@@ -29,8 +29,7 @@ export default function ContactSection() {
       } else {
         setSubmitStatus('error');
       }
-    } catch (error) {
-      console.error('Contact form submission failed:', error);
+    } catch {
       setSubmitStatus('error');
     }
   };
