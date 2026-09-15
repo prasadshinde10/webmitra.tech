@@ -35,75 +35,90 @@ export default function ContactSection() {
   };
 
   return (
-    <section className="relative w-full py-24 bg-background">
+    <section id="contact" className="relative w-full py-24 bg-white">
       <div className="max-w-4xl mx-auto px-4">
-        <div className="mb-12">
-          <h2 className="text-4xl font-bold mb-4">Start a Project</h2>
-          <p className="text-muted-foreground">Fill out the form below and we&apos;ll get back to you within 24 hours.</p>
+        <div className="mb-12 text-center">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 border border-primary/20 text-xs font-mono text-primary font-semibold mb-4">
+            <span>Direct Communication</span>
+          </div>
+          <h2 className="text-4xl sm:text-5xl font-bold mb-4 text-slate-950">Start a Project</h2>
+          <p className="text-slate-600 text-base sm:text-lg max-w-2xl mx-auto text-balance">
+            Tell us about your operational bottleneck, software requirement, or automation goal. We&apos;ll get back to you with an architectural proposal within 24 hours.
+          </p>
         </div>
 
-        <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div>
-              <label htmlFor="name" className="block text-sm font-medium mb-2">Name</label>
-              <input
-                {...register('name', { required: true })}
-                className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-primary transition-all"
-                placeholder="John Doe"
-              />
-              {errors.name && <span className="text-red-500 text-xs mt-1">Name is required</span>}
+        <div className="bg-white border border-slate-200 rounded-3xl p-6 sm:p-10 shadow-[0_20px_60px_-15px_rgba(15,23,42,0.07)]">
+          <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div>
+                <label htmlFor="name" className="block text-sm font-semibold text-slate-800 mb-2">Name</label>
+                <input
+                  id="name"
+                  {...register('name', { required: true })}
+                  className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3.5 focus:outline-none focus:ring-2 focus:ring-primary focus:bg-white transition-all text-slate-950 placeholder:text-slate-400 text-sm"
+                  placeholder="John Doe"
+                />
+                {errors.name && <span className="text-rose-600 text-xs mt-1 block">Name is required</span>}
+              </div>
+              <div>
+                <label htmlFor="email" className="block text-sm font-semibold text-slate-800 mb-2">Email</label>
+                <input
+                  id="email"
+                  type="email"
+                  {...register('email', { required: true, pattern: /^\S+@\S+$/i })}
+                  className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3.5 focus:outline-none focus:ring-2 focus:ring-primary focus:bg-white transition-all text-slate-950 placeholder:text-slate-400 text-sm"
+                  placeholder="john@example.com"
+                />
+                {errors.email && <span className="text-rose-600 text-xs mt-1 block">Valid email is required</span>}
+              </div>
             </div>
-            <div>
-              <label htmlFor="email" className="block text-sm font-medium mb-2">Email</label>
-              <input
-                {...register('email', { required: true, pattern: /^\S+@\S+$/i })}
-                className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-primary transition-all"
-                placeholder="john@example.com"
-              />
-              {errors.email && <span className="text-red-500 text-xs mt-1">Valid email is required</span>}
-            </div>
-          </div>
 
-          <div>
-            <label htmlFor="service" className="block text-sm font-medium mb-2">Service Required</label>
-            <select
-              {...register('service', { required: true })}
-              className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-primary transition-all text-white"
+            <div>
+              <label htmlFor="service" className="block text-sm font-semibold text-slate-800 mb-2">Service or Solution Needed</label>
+              <select
+                id="service"
+                {...register('service', { required: true })}
+                className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3.5 focus:outline-none focus:ring-2 focus:ring-primary focus:bg-white transition-all text-slate-950 text-sm"
+              >
+                <option value="" className="text-slate-400">Select a technology domain</option>
+                <option value="custom_software">Custom Software &amp; SaaS Development</option>
+                <option value="process_automation">Business Process &amp; Workflow Automation</option>
+                <option value="ai_ml">AI &amp; Machine Learning Solutions</option>
+                <option value="erp_systems">Custom ERP &amp; Operations Systems</option>
+                <option value="data_analytics">Data Analytics &amp; BI Dashboards</option>
+                <option value="frontend_ux">Modern Frontend &amp; UI/UX Architecture</option>
+              </select>
+              {errors.service && <span className="text-rose-600 text-xs mt-1 block">Service is required</span>}
+            </div>
+
+            <div>
+              <label htmlFor="message" className="block text-sm font-semibold text-slate-800 mb-2">Message</label>
+              <textarea
+                id="message"
+                {...register('message', { required: true })}
+                rows={5}
+                className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3.5 focus:outline-none focus:ring-2 focus:ring-primary focus:bg-white transition-all resize-none text-slate-950 placeholder:text-slate-400 text-sm"
+                placeholder="Tell us about your project, current bottlenecks, or system requirements..."
+              />
+              {errors.message && <span className="text-rose-600 text-xs mt-1 block">Message is required</span>}
+            </div>
+
+            <button
+              type="submit"
+              disabled={isSubmitting}
+              className="w-full bg-slate-950 hover:bg-black text-white font-bold text-base py-4 rounded-xl hover:shadow-lg transition-all disabled:opacity-50"
             >
-              <option value="" className="text-black">Select a service</option>
-              <option value="3d_website" className="text-black">3D Immersive Website</option>
-              <option value="web_app" className="text-black">Web Application</option>
-              <option value="ui_ux" className="text-black">UI/UX Design</option>
-            </select>
-            {errors.service && <span className="text-red-500 text-xs mt-1">Service is required</span>}
-          </div>
+              {isSubmitting ? 'Sending Request...' : 'Send Message'}
+            </button>
 
-          <div>
-            <label htmlFor="message" className="block text-sm font-medium mb-2">Message</label>
-            <textarea
-              {...register('message', { required: true })}
-              rows={5}
-              className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-primary transition-all resize-none"
-              placeholder="Tell us about your project..."
-            />
-            {errors.message && <span className="text-red-500 text-xs mt-1">Message is required</span>}
-          </div>
-
-          <button
-            type="submit"
-            disabled={isSubmitting}
-            className="w-full bg-primary text-primary-foreground font-bold text-lg py-4 rounded-lg hover:bg-primary/90 transition-colors disabled:opacity-50"
-          >
-            {isSubmitting ? 'Sending...' : 'Send Message'}
-          </button>
-
-          {submitStatus === 'success' && (
-            <p className="text-green-500 text-center mt-4">Message sent successfully! We will contact you soon at your webmitra.tech domain email.</p>
-          )}
-          {submitStatus === 'error' && (
-            <p className="text-red-500 text-center mt-4">Something went wrong. Please try again.</p>
-          )}
-        </form>
+            {submitStatus === 'success' && (
+              <p className="text-emerald-600 font-medium text-center mt-4">Message sent successfully! We will contact you soon.</p>
+            )}
+            {submitStatus === 'error' && (
+              <p className="text-rose-600 font-medium text-center mt-4">Something went wrong. Please try again or reach out via WhatsApp.</p>
+            )}
+          </form>
+        </div>
       </div>
     </section>
   );

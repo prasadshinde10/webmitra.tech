@@ -36,12 +36,12 @@ export default function AbstractEnvironment() {
       <Points ref={pointsRef} positions={positions} stride={3} frustumCulled={false}>
         <PointMaterial
           transparent
-          color="#3b82f6" // Tailwind blue-500
-          size={0.02}
+          color="#64748b" // Slate-500 for visible light contrast
+          size={0.025}
           sizeAttenuation={true}
           depthWrite={false}
-          opacity={0.6}
-          blending={THREE.AdditiveBlending}
+          opacity={0.3}
+          blending={THREE.NormalBlending}
         />
       </Points>
     </group>

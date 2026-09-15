@@ -1,5 +1,6 @@
 import HeroSection from "@/components/sections/HeroSection";
 import FeaturesSection from "@/components/sections/FeaturesSection";
+import IndustriesSection from "@/components/sections/IndustriesSection";
 import ProjectShowcase from "@/components/sections/ProjectShowcase";
 import TeamSection from "@/components/sections/TeamSection";
 import CtaSection from "@/components/sections/CtaSection";
@@ -19,17 +20,18 @@ export default function Home() {
       */}
       <div className="relative z-10 bg-background/95 backdrop-blur-sm">
         <FeaturesSection />
+        <IndustriesSection />
       </div>
       
       <div className="relative z-10">
         <ProjectShowcase />
       </div>
       
-      <div className="relative z-10 bg-background/95 backdrop-blur-sm shadow-2xl shadow-black/50">
+      <div className="relative z-10 bg-background/95 backdrop-blur-sm border-t border-slate-100">
         <TeamSection />
       </div>
       
-      <div className="relative z-10 shadow-2xl">
+      <div className="relative z-10 shadow-md">
         <CtaSection />
       </div>
       

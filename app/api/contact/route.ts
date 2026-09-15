@@ -4,14 +4,30 @@ export async function POST(request: Request) {
   try {
     const data = await request.json();
 
-    // Simulate email sending delay
-    await new Promise((resolve) => setTimeout(resolve, 1000));
+    const { name, email, service, message } = data;
 
-    // Log the data (in a real app, send via Resend or Nodemailer to webmitra.tech here)
-    console.log('Received contact form submission:', data);
+    if (!name || !email || !message) {
+      return NextResponse.json(
+        { error: 'Name, email, and message are required fields.' },
+        { status: 400 }
+      );
+    }
 
-    return NextResponse.json({ success: true });
-  } catch {
+    // Simulate processing
+    await new Promise((resolve) => setTimeout(resolve, 800));
+
+    // In production, integrate email service (e.g., Resend or Nodemailer)
+    console.log('Received contact submission:', {
+      name,
+      email,
+      service: service || 'unspecified',
+      messageLength: message.length,
+      timestamp: new Date().toISOString(),
+    });
+
+    return NextResponse.json({ success: true, message: 'Inquiry received.' });
+  } catch (err) {
+    console.error('API Contact submission error:', err);
     return NextResponse.json({ error: 'Failed to process submission' }, { status: 500 });
   }
 }

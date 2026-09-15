@@ -5,16 +5,30 @@
 @layer base {
   :root {
     --background: 0 0% 100%;
-    --foreground: 0 0% 3.9%;
-    --primary: 221.2 83.2% 53.3%;
+    --foreground: 222.2 84% 4.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 84% 4.9%;
+    --primary: 222.2 47.4% 11.2%;
     --primary-foreground: 210 40% 98%;
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+    --accent: 346.8 77.2% 49.8%;
+    --accent-foreground: 0 0% 100%;
+    --border: 214.3 31.8% 91.4%;
   }
 
   .dark {
-    --background: 0 0% 3.9%;
-    --foreground: 0 0% 98%;
-    --primary: 217.2 91.2% 59.8%;
+    --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%;
+    --card: 222.2 84% 4.9%;
+    --card-foreground: 210 40% 98%;
+    --primary: 210 40% 98%;
     --primary-foreground: 222.2 47.4% 11.2%;
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+    --accent: 346.8 77.2% 49.8%;
+    --accent-foreground: 0 0% 100%;
+    --border: 217.2 32.6% 17.5%;
   }
 }
 
@@ -30,13 +44,39 @@
   }
 }
 
-/* Hide scrollbar for Lenis smooth scroll */
-::-webkit-scrollbar {
-  display: none;
+/* Lenis smooth scrolling essential styles */
+html.lenis, html.lenis body {
+  height: auto;
 }
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+.lenis.lenis-scrolling iframe {
+  pointer-events: none;
+}
+
 html {
   -ms-overflow-style: none;
   scrollbar-width: none;
+  overflow-x: clip;
+}
+
+body {
+  overflow-x: clip;
+}
+
+::-webkit-scrollbar {
+  display: none;
 }
 
 @layer utilities {

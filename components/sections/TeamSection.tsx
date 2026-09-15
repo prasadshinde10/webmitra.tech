@@ -3,34 +3,37 @@
 import { useEffect, useRef } from 'react';
 import { ProfileCard } from '../ui/ProfileCard';
 import gsap from 'gsap';
+import ScrollTrigger from 'gsap/ScrollTrigger';
+
+gsap.registerPlugin(ScrollTrigger);
 
 const teamMembers = [
   {
-    name: 'Alex Rivera',
-    role: 'Lead 3D Developer',
-    skills: ['Three.js', 'WebGL', 'React Three Fiber', 'GLSL'],
-    projects: ['Aurora Analytics 3D View', 'Virtual Showroom'],
+    name: 'Prasad Shinde',
+    role: 'Lead Architect & Full-Stack Engineer',
+    skills: ['MERN Stack', 'System Architecture', 'Node.js', 'PostgreSQL', 'Cloud & DevOps', 'REST / GraphQL APIs'],
+    projects: ['OmniFlow Enterprise ERP', 'Scalable Microservices Core', 'Cloud Infrastructure Setup'],
     imageUrl: '/team/team_1.png',
   },
   {
-    name: 'Maya Patel',
-    role: 'Senior UI/UX Designer',
-    skills: ['Figma', 'Framer Motion', 'User Research', 'Design Systems'],
-    projects: ['Velocity Store Redesign', 'Equinox Capital'],
+    name: 'AI & Data Science Specialist',
+    role: 'Machine Learning & Analytics Lead',
+    skills: ['Machine Learning', 'Predictive Modeling', 'NLP & LLM Integrations', 'Data Pipelines', 'Python / PyTorch'],
+    projects: ['PulseAI Forecasting Engine', 'Intelligent Document Processing', 'Customer Segmentation Models'],
     imageUrl: '/team/team_1.png',
   },
   {
-    name: 'Samir Johnson',
-    role: 'Frontend Engineer',
-    skills: ['Next.js', 'Tailwind CSS', 'GSAP', 'TypeScript'],
-    projects: ['WebMitra Tech Solutions', 'Velocity Store'],
+    name: 'Modern Frontend Specialist',
+    role: 'Senior UI/UX & Frontend Developer',
+    skills: ['Next.js 14', 'React', 'Three.js / WebGL', 'GSAP Animation', 'Tailwind CSS', 'High-Performance UI'],
+    projects: ['WebMitra 3D Interactive Platform', 'Nexus Commerce Engine', 'Responsive Enterprise Portals'],
     imageUrl: '/team/team_1.png',
   },
   {
-    name: 'Elena Rostova',
-    role: 'Technical Lead',
-    skills: ['System Architecture', 'Node.js', 'React', 'DevOps'],
-    projects: ['Equinox Capital Core', 'Aurora Analytics Backend'],
+    name: 'UI/UX & Product Architect',
+    role: 'Product Designer & UX Strategist',
+    skills: ['User Research', 'Design Systems', 'Wireframing & Prototyping', 'UX Architecture', 'Usability Testing'],
+    projects: ['Equinox Financial Suite Redesign', 'OmniFlow Design System', 'SaaS Dashboard Frameworks'],
     imageUrl: '/team/team_1.png',
   }
 ];
@@ -46,12 +49,12 @@ export default function TeamSection() {
         if (i === cards.length - 1) return; // Don't scale down the last card
         
         gsap.to(card, {
-          scale: 0.9,
-          opacity: 0.5,
+          scale: 0.92,
+          opacity: 0.6,
           scrollTrigger: {
             trigger: cards[i + 1],
-            start: 'top 80%',
-            end: 'top 30%',
+            start: 'top 85%',
+            end: 'top 35%',
             scrub: true,
           }
         });
@@ -62,19 +65,22 @@ export default function TeamSection() {
   }, []);
 
   return (
-    <section ref={containerRef} className="relative w-full py-24 bg-background">
-      <div className="max-w-7xl mx-auto px-4 w-full mb-32">
+    <section id="team" ref={containerRef} className="relative w-full py-24 bg-slate-50/50">
+      <div className="max-w-7xl mx-auto px-4 w-full mb-20 md:mb-28">
         <div className="text-center">
-          <h2 className="text-5xl md:text-7xl font-bold mb-4">Our Team</h2>
-          <p className="text-muted-foreground text-xl max-w-2xl mx-auto">
-            The minds behind the digital experiences.
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 border border-primary/20 text-xs font-mono text-primary font-semibold mb-4">
+            <span>Unified Technical Team</span>
+          </div>
+          <h2 className="text-4xl sm:text-5xl md:text-7xl font-bold mb-4 text-slate-950">Multidisciplinary Engineering</h2>
+          <p className="text-slate-600 text-base sm:text-xl max-w-3xl mx-auto text-balance">
+            You don&apos;t need to coordinate with multiple disjointed technology vendors. We bring MERN developers, AI engineers, data science specialists, modern frontend architects, and UI/UX designers together under one roof.
           </p>
         </div>
       </div>
 
-      <div className="relative pb-64">
+      <div className="relative pb-24 px-4">
         {teamMembers.map((member, idx) => (
-          <div key={idx} className="h-screen w-full flex items-start justify-center absolute top-0" style={{ position: 'relative', marginTop: idx === 0 ? '0' : '-50vh' }}>
+          <div key={idx} className="w-full flex items-start justify-center mb-16 md:mb-24">
             <ProfileCard 
               {...member} 
               index={idx} 
