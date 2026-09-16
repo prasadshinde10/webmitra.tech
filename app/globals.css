@@ -15,6 +15,11 @@
     --accent: 346.8 77.2% 49.8%;
     --accent-foreground: 0 0% 100%;
     --border: 214.3 31.8% 91.4%;
+    --color-1: 0 100% 63%;
+    --color-2: 270 100% 63%;
+    --color-3: 210 100% 63%;
+    --color-4: 195 100% 63%;
+    --color-5: 90 100% 63%;
   }
 
   .dark {
@@ -29,6 +34,11 @@
     --accent: 346.8 77.2% 49.8%;
     --accent-foreground: 0 0% 100%;
     --border: 217.2 32.6% 17.5%;
+    --color-1: 0 100% 63%;
+    --color-2: 270 100% 63%;
+    --color-3: 210 100% 63%;
+    --color-4: 195 100% 63%;
+    --color-5: 90 100% 63%;
   }
 }
 
@@ -93,3 +103,17 @@ body {
     transform: rotateY(180deg);
   }
 }
+
+@keyframes rainbow {
+  0% {
+    background-position: 0%;
+  }
+  100% {
+    background-position: 200%;
+  }
+}
+
+.animate-rainbow {
+  animation: rainbow 3s infinite linear;
+}
+

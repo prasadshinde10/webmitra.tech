@@ -72,12 +72,6 @@ export function Navbar() {
         <div className="hidden md:flex items-center gap-3.5">
           <ThemeToggle />
           <a
-            href="tel:+918411825361"
-            className="text-xs text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors font-mono"
-          >
-            +91 84118 25361
-          </a>
-          <a
             href="#contact"
             className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-slate-950 text-white dark:bg-white dark:text-slate-950 text-xs font-semibold hover:bg-slate-800 dark:hover:bg-slate-100 transition-all duration-200 shadow-sm hover:shadow-md"
           >
@@ -138,12 +132,6 @@ export function Navbar() {
             Contact
           </a>
           <div className="pt-4 border-t border-slate-200 dark:border-slate-800 flex flex-col gap-3">
-            <a
-              href="tel:+918411825361"
-              className="text-xs text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white font-mono"
-            >
-              Direct: +91 84118 25361
-            </a>
             <a
               href="#contact"
               onClick={() => setMobileMenuOpen(false)}

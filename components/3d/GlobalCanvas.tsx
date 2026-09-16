@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import { Canvas } from '@react-three/fiber';
 import { Preload } from '@react-three/drei';
 import { useTheme } from 'next-themes';
-import AntigravityScene from './AntigravityScene';
+import AntigravityBackground from './AntigravityBackground';
 
 export default function GlobalCanvas() {
   const [mounted, setMounted] = useState(false);
@@ -28,7 +28,7 @@ export default function GlobalCanvas() {
         gl={{ antialias: true, alpha: false, powerPreference: 'high-performance' }}
       >
         <color attach="background" args={[isDark ? '#020617' : '#fafafa']} />
-        <AntigravityScene isDark={isDark} />
+        <AntigravityBackground isDark={isDark} />
         <Preload all />
       </Canvas>
     </div>
