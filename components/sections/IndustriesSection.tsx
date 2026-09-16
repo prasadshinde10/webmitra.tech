@@ -118,17 +118,17 @@ export default function IndustriesSection() {
   const activeIndustry = industries[activeTab];
 
   return (
-    <section id="industries" className="relative w-full py-24 bg-slate-50/60 border-t border-slate-200/80">
+    <section id="industries" className="relative w-full py-24 bg-slate-50/60 dark:bg-slate-950/40 border-t border-slate-200/80 dark:border-slate-800/80 transition-colors">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-rose-50 border border-rose-200 text-xs font-mono text-rose-700 mb-4 shadow-xs">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-rose-50 dark:bg-rose-950/50 border border-rose-200 dark:border-rose-900 text-xs font-mono text-rose-700 dark:text-rose-300 mb-4 shadow-xs">
             <span>Industry-Specific Solutions</span>
           </div>
-          <h2 className="text-4xl sm:text-5xl font-black text-slate-950 mb-4 tracking-tight">
+          <h2 className="text-4xl sm:text-5xl font-black text-slate-950 dark:text-white mb-4 tracking-tight">
             Tailored to Your Operational Workflows
           </h2>
-          <p className="text-slate-600 max-w-3xl mx-auto text-base sm:text-lg text-balance">
-            Every industry has unique workflows, constraints, and operational bottlenecks. We don&apos;t offer one-size-fits-all software. <strong className="text-slate-900 font-semibold">We understand the problem first and engineer the technology around it.</strong>
+          <p className="text-slate-600 dark:text-slate-300 max-w-3xl mx-auto text-base sm:text-lg text-balance">
+            Every industry has unique workflows, constraints, and operational bottlenecks. We don&apos;t offer one-size-fits-all software. <strong className="text-slate-900 dark:text-white font-semibold">We understand the problem first and engineer the technology around it.</strong>
           </p>
         </div>
 
@@ -143,11 +143,11 @@ export default function IndustriesSection() {
                 onClick={() => setActiveTab(idx)}
                 className={`inline-flex items-center gap-2 px-4 py-2.5 rounded-full text-xs sm:text-sm font-medium transition-all duration-200 ${
                   isActive
-                    ? 'bg-slate-900 text-white shadow-md shadow-slate-900/15 scale-105'
-                    : 'bg-white hover:bg-slate-100 text-slate-700 border border-slate-200/90 shadow-xs'
+                    ? 'bg-slate-950 text-white dark:bg-white dark:text-slate-950 shadow-md scale-105'
+                    : 'bg-white dark:bg-slate-900 hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200/90 dark:border-slate-800 shadow-xs'
                 }`}
               >
-                <Icon className={`w-3.5 h-3.5 ${isActive ? 'text-rose-400' : 'text-rose-600'}`} />
+                <Icon className={`w-3.5 h-3.5 ${isActive ? 'text-rose-400' : 'text-rose-600 dark:text-rose-400'}`} />
                 <span>{ind.name}</span>
               </button>
             );
@@ -155,19 +155,19 @@ export default function IndustriesSection() {
         </div>
 
         {/* Active industry detail card */}
-        <div className="max-w-4xl mx-auto rounded-3xl bg-white border border-slate-200/90 p-8 sm:p-12 shadow-xl shadow-slate-200/60 relative overflow-hidden">
+        <div className="max-w-4xl mx-auto rounded-3xl bg-white dark:bg-slate-900/90 border border-slate-200/90 dark:border-slate-800 p-8 sm:p-12 shadow-xl shadow-slate-200/50 dark:shadow-black/50 relative overflow-hidden backdrop-blur-md">
           <div className="absolute top-0 right-0 w-96 h-96 bg-rose-500/5 rounded-full blur-3xl pointer-events-none -mr-20 -mt-20" />
           
-          <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-6 pb-8 border-b border-slate-100 mb-8">
+          <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-6 pb-8 border-b border-slate-100 dark:border-slate-800 mb-8">
             <div className="flex items-center gap-4">
-              <div className="w-14 h-14 rounded-2xl bg-rose-50 border border-rose-100 flex items-center justify-center shrink-0 shadow-xs">
-                {React.createElement(activeIndustry.icon, { className: 'w-7 h-7 text-rose-600' })}
+              <div className="w-14 h-14 rounded-2xl bg-rose-50 dark:bg-rose-950/60 border border-rose-100 dark:border-rose-900 flex items-center justify-center shrink-0 shadow-xs">
+                {React.createElement(activeIndustry.icon, { className: 'w-7 h-7 text-rose-600 dark:text-rose-400' })}
               </div>
               <div>
-                <h3 className="text-2xl sm:text-3xl font-bold text-slate-950 mb-1">
+                <h3 className="text-2xl sm:text-3xl font-bold text-slate-950 dark:text-white mb-1">
                   {activeIndustry.name}
                 </h3>
-                <p className="text-slate-600 text-sm sm:text-base">
+                <p className="text-slate-600 dark:text-slate-300 text-sm sm:text-base">
                   {activeIndustry.tagline}
                 </p>
               </div>
@@ -175,7 +175,7 @@ export default function IndustriesSection() {
 
             <a
               href="#contact"
-              className="inline-flex items-center gap-2 text-xs sm:text-sm text-rose-600 font-semibold hover:text-rose-700 hover:underline self-start md:self-auto"
+              className="inline-flex items-center gap-2 text-xs sm:text-sm text-rose-600 dark:text-rose-400 font-semibold hover:text-rose-700 dark:hover:text-rose-300 hover:underline self-start md:self-auto"
             >
               <span>Discuss {activeIndustry.name} Solution</span>
               <ArrowRight className="w-4 h-4" />
@@ -186,10 +186,10 @@ export default function IndustriesSection() {
             {activeIndustry.solutions.map((sol, i) => (
               <div
                 key={i}
-                className="flex items-start gap-3 p-4 rounded-xl bg-slate-50/80 border border-slate-200/70"
+                className="flex items-start gap-3 p-4 rounded-xl bg-slate-50/80 dark:bg-slate-950/60 border border-slate-200/70 dark:border-slate-800"
               >
-                <CheckCircle2 className="w-5 h-5 text-rose-600 shrink-0 mt-0.5" />
-                <span className="text-sm text-slate-800 leading-snug font-medium">{sol}</span>
+                <CheckCircle2 className="w-5 h-5 text-rose-600 dark:text-rose-400 shrink-0 mt-0.5" />
+                <span className="text-sm text-slate-800 dark:text-slate-200 leading-snug font-medium">{sol}</span>
               </div>
             ))}
           </div>

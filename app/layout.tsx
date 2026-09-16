@@ -53,21 +53,30 @@ export const metadata: Metadata = {
   },
 };
 
+import { ThemeProvider } from "@/components/theme-provider";
+
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="light">
-      <body className={`${inter.className} bg-background text-foreground antialiased selection:bg-rose-500 selection:text-white min-h-screen`}>
-        <GlobalCanvas />
-        <SmoothScroll>
-          <Navbar />
-          {children}
-          <Footer />
-          <WhatsAppButton />
-        </SmoothScroll>
+    <html lang="en" suppressHydrationWarning>
+      <body className={`${inter.className} bg-background text-foreground antialiased selection:bg-rose-500 selection:text-white min-h-screen transition-colors duration-300`}>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange={false}
+        >
+          <GlobalCanvas />
+          <SmoothScroll>
+            <Navbar />
+            {children}
+            <Footer />
+            <WhatsAppButton />
+          </SmoothScroll>
+        </ThemeProvider>
       </body>
     </html>
   );

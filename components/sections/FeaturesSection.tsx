@@ -75,24 +75,22 @@ export default function FeaturesSection() {
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      const cards = gsap.utils.toArray<HTMLElement>('.feature-card-item');
-      
-      gsap.fromTo(
-        cards,
-        { y: 40, opacity: 0 },
-        {
-          y: 0,
-          opacity: 1,
-          duration: 0.8,
-          stagger: 0.12,
-          ease: 'power3.out',
-          scrollTrigger: {
-            trigger: sectionRef.current,
-            start: 'top 75%',
-            once: true,
-          },
-        }
-      );
+      // 3D Flip animation on scroll for all card inners
+      gsap.utils.toArray<HTMLElement>('.feature-card-inner').forEach((card) => {
+        gsap.fromTo(card,
+          { rotationY: 0 },
+          {
+            rotationY: 180,
+            ease: 'power2.inOut',
+            scrollTrigger: {
+              trigger: card,
+              start: 'top 82%',
+              end: 'top 45%',
+              scrub: 0.8,
+            }
+          }
+        );
+      });
     }, sectionRef);
 
     return () => ctx.revert();
@@ -102,22 +100,20 @@ export default function FeaturesSection() {
     <section id="features" ref={sectionRef} className="relative w-full py-28 flex flex-col items-center justify-center">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
         <div className="text-center mb-16">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-rose-50 border border-rose-200 text-xs font-mono text-rose-700 font-semibold mb-4 shadow-xs">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-rose-50 dark:bg-rose-950/50 border border-rose-200 dark:border-rose-900 text-xs font-mono text-rose-700 dark:text-rose-300 font-semibold mb-4 shadow-xs">
             <span>Core Capabilities</span>
           </div>
-          <h2 className="text-4xl sm:text-5xl lg:text-6xl font-black text-slate-950 mb-4 tracking-tight">
+          <h2 className="text-4xl sm:text-5xl lg:text-6xl font-black text-slate-950 dark:text-white mb-4 tracking-tight">
             Comprehensive Software Ecosystem
           </h2>
-          <p className="text-slate-600 max-w-3xl mx-auto text-base sm:text-lg text-balance">
+          <p className="text-slate-600 dark:text-slate-300 max-w-3xl mx-auto text-base sm:text-lg text-balance">
             We don&apos;t just build websites. We deliver full-stack technology solutions &mdash; from bespoke enterprise software and automation to predictive AI and scalable digital infrastructure.
           </p>
         </div>
         
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 items-stretch">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 justify-items-center">
           {features.map((feature, idx) => (
-            <div key={idx} className="feature-card-item flex">
-              <FeatureCard {...feature} />
-            </div>
+            <FeatureCard key={idx} {...feature} />
           ))}
         </div>
       </div>

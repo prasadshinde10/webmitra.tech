@@ -65,14 +65,14 @@ export default function TeamSection() {
   }, []);
 
   return (
-    <section id="team" ref={containerRef} className="relative w-full py-24 bg-slate-50/50">
+    <section id="team" ref={containerRef} className="relative w-full py-24 bg-slate-50/50 dark:bg-slate-950/40 transition-colors">
       <div className="max-w-7xl mx-auto px-4 w-full mb-20 md:mb-28">
         <div className="text-center">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 border border-primary/20 text-xs font-mono text-primary font-semibold mb-4">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-rose-50 dark:bg-rose-950/50 border border-rose-200 dark:border-rose-900 text-xs font-mono text-rose-700 dark:text-rose-300 font-semibold mb-4 shadow-xs">
             <span>Unified Technical Team</span>
           </div>
-          <h2 className="text-4xl sm:text-5xl md:text-7xl font-bold mb-4 text-slate-950">Multidisciplinary Engineering</h2>
-          <p className="text-slate-600 text-base sm:text-xl max-w-3xl mx-auto text-balance">
+          <h2 className="text-4xl sm:text-5xl md:text-7xl font-bold mb-4 text-slate-950 dark:text-white">Multidisciplinary Engineering</h2>
+          <p className="text-slate-600 dark:text-slate-300 text-base sm:text-xl max-w-3xl mx-auto text-balance">
             You don&apos;t need to coordinate with multiple disjointed technology vendors. We bring MERN developers, AI engineers, data science specialists, modern frontend architects, and UI/UX designers together under one roof.
           </p>
         </div>

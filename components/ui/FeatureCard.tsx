@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React from 'react';
 import { cn } from '@/lib/utils';
 import { 
   Code2, 
@@ -9,13 +9,10 @@ import {
   Layers, 
   BarChart3, 
   Monitor, 
-  CheckCircle2, 
   ArrowRight, 
   Sparkles, 
-  ShieldCheck, 
-  Activity, 
-  Database,
-  Workflow
+  RefreshCw,
+  Activity
 } from 'lucide-react';
 
 export interface FeatureItemData {
@@ -29,240 +26,103 @@ export interface FeatureItemData {
   metricLabel: string;
 }
 
-// 1. SaaS / Custom Software Code Widget
-function SaasWidget() {
+// Compact Contextual Micro-Widgets for Card Front
+function CompactSaasWidget() {
   return (
-    <div className="w-full rounded-2xl bg-slate-950 p-4 font-mono text-xs text-slate-300 border border-slate-800 shadow-inner overflow-hidden">
-      <div className="flex items-center justify-between pb-3 mb-3 border-b border-slate-800/80">
-        <div className="flex items-center gap-1.5">
-          <div className="w-2.5 h-2.5 rounded-full bg-rose-500/80" />
-          <div className="w-2.5 h-2.5 rounded-full bg-amber-500/80" />
-          <div className="w-2.5 h-2.5 rounded-full bg-emerald-500/80" />
+    <div className="w-full rounded-xl bg-slate-950 dark:bg-slate-950 p-2.5 font-mono text-[10px] text-slate-300 border border-slate-800 shadow-inner">
+      <div className="flex items-center justify-between pb-1.5 mb-1.5 border-b border-slate-800/80">
+        <div className="flex items-center gap-1">
+          <div className="w-2 h-2 rounded-full bg-rose-500/80" />
+          <div className="w-2 h-2 rounded-full bg-amber-500/80" />
+          <div className="w-2 h-2 rounded-full bg-emerald-500/80" />
         </div>
-        <span className="text-[11px] text-slate-400 font-medium">api/v1/architecture.ts</span>
-        <span className="text-[10px] text-emerald-400 font-semibold px-2 py-0.5 rounded-full bg-emerald-950/60 border border-emerald-500/30">200 OK</span>
+        <span className="text-emerald-400 font-bold">200 OK (11ms)</span>
       </div>
-      <div className="space-y-1 text-[11px] leading-relaxed">
-        <div className="text-slate-500">{`// Enterprise Microservices Engine`}</div>
-        <div>
-          <span className="text-rose-400">const</span> <span className="text-blue-300">platform</span> = <span className="text-rose-400">await</span> <span className="text-amber-300">deployCore</span>({'{'}
-        </div>
-        <div className="pl-4">
-          <span className="text-slate-400">multiTenant:</span> <span className="text-emerald-300">true</span>,
-        </div>
-        <div className="pl-4">
-          <span className="text-slate-400">dbCluster:</span> <span className="text-amber-200">&quot;PostgreSQL&quot;</span>,
-        </div>
-        <div className="pl-4">
-          <span className="text-slate-400">latency:</span> <span className="text-emerald-300">&quot;&lt;12ms&quot;</span>
-        </div>
-        <div>{'}'});</div>
+      <div className="truncate text-slate-300">
+        <span className="text-rose-400">const</span> <span className="text-blue-300">saas</span> = <span className="text-rose-400">await</span> deployEngine();
       </div>
     </div>
   );
 }
 
-// 2. Process Automation Pipeline Widget
-function AutomationWidget() {
+function CompactAutomationWidget() {
   return (
-    <div className="w-full rounded-2xl bg-slate-50/90 border border-slate-200 p-4 shadow-inner">
-      <div className="flex items-center justify-between text-[11px] font-mono font-semibold text-slate-500 mb-3">
-        <span className="flex items-center gap-1 text-amber-700">
-          <Workflow className="w-3.5 h-3.5 text-amber-600" />
-          <span>Active Pipeline Trigger</span>
-        </span>
-        <span className="text-emerald-600 font-bold bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-200">
-          0.2s Execution
-        </span>
-      </div>
-
-      <div className="flex items-center justify-between gap-2">
-        {/* Step 1 */}
-        <div className="flex-1 bg-white border border-slate-200 rounded-xl p-2.5 text-center shadow-xs">
-          <div className="text-[10px] text-slate-400 uppercase font-mono font-semibold">Intake</div>
-          <div className="text-xs font-bold text-slate-800 mt-0.5">Webhook / Form</div>
-        </div>
-
-        <ArrowRight className="w-4 h-4 text-amber-500 shrink-0 animate-pulse" />
-
-        {/* Step 2 */}
-        <div className="flex-1 bg-amber-500/10 border border-amber-300/60 rounded-xl p-2.5 text-center shadow-xs">
-          <div className="text-[10px] text-amber-700 uppercase font-mono font-semibold">AI Parse</div>
-          <div className="text-xs font-bold text-amber-900 mt-0.5">Filter &amp; Validate</div>
-        </div>
-
-        <ArrowRight className="w-4 h-4 text-emerald-500 shrink-0 animate-pulse" />
-
-        {/* Step 3 */}
-        <div className="flex-1 bg-emerald-500/10 border border-emerald-300/60 rounded-xl p-2.5 text-center shadow-xs">
-          <div className="text-[10px] text-emerald-700 uppercase font-mono font-semibold">Auto-Sync</div>
-          <div className="text-xs font-bold text-emerald-900 mt-0.5">ERP Dispatched</div>
-        </div>
-      </div>
-
-      <div className="mt-3 flex items-center justify-between pt-2 border-t border-slate-200/80 text-[11px] text-slate-600">
-        <span className="flex items-center gap-1">
-          <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" />
-          <span>Zero manual spreadsheets</span>
-        </span>
-        <span className="font-mono font-semibold text-slate-700">10x Speed Gain</span>
+    <div className="w-full rounded-xl bg-slate-50 dark:bg-slate-950/60 border border-slate-200 dark:border-slate-800 p-2 text-[10px] font-mono">
+      <div className="flex items-center justify-between gap-1 text-slate-700 dark:text-slate-300">
+        <span className="px-1.5 py-0.5 rounded bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 font-bold">Intake</span>
+        <ArrowRight className="w-3 h-3 text-amber-500 shrink-0" />
+        <span className="px-1.5 py-0.5 rounded bg-amber-500/10 text-amber-700 dark:text-amber-300 border border-amber-300/40 font-bold">AI Parse</span>
+        <ArrowRight className="w-3 h-3 text-emerald-500 shrink-0" />
+        <span className="px-1.5 py-0.5 rounded bg-emerald-500/10 text-emerald-700 dark:text-emerald-300 border border-emerald-300/40 font-bold">Auto-Sync</span>
       </div>
     </div>
   );
 }
 
-// 3. AI & Machine Learning Widget
-function AiWidget() {
+function CompactAiWidget() {
   return (
-    <div className="w-full rounded-2xl bg-gradient-to-br from-violet-950 via-slate-950 to-slate-950 border border-violet-900/40 p-4 text-white shadow-inner">
-      <div className="flex items-center justify-between text-xs font-mono mb-3">
-        <div className="flex items-center gap-1.5 text-violet-300">
-          <Sparkles className="w-3.5 h-3.5 text-violet-400" />
-          <span className="font-semibold">Neural Inference Engine</span>
-        </div>
-        <span className="text-[11px] text-violet-200 bg-violet-900/60 px-2 py-0.5 rounded-full border border-violet-700/50">
-          99.4% Confidence
+    <div className="w-full rounded-xl bg-gradient-to-r from-violet-950 via-slate-950 to-slate-950 border border-violet-900/40 p-2 text-white">
+      <div className="flex items-center justify-between text-[10px] font-mono mb-1">
+        <span className="flex items-center gap-1 text-violet-300 font-semibold">
+          <Sparkles className="w-3 h-3 text-violet-400" />
+          <span>Neural RAG</span>
         </span>
+        <span className="text-emerald-400 font-bold">99.4% Accuracy</span>
       </div>
-
-      <div className="bg-white/5 border border-white/10 rounded-xl p-3 mb-3">
-        <div className="text-[10px] text-violet-300 font-mono uppercase mb-1">Live Prediction Matrix</div>
-        <p className="text-xs text-slate-200 leading-snug">
-          &ldquo;Predictive demand spike identified &mdash; Auto-reordering 1,400 units.&rdquo;
-        </p>
-      </div>
-
-      {/* Accuracy meter bar */}
-      <div className="space-y-1.5">
-        <div className="flex justify-between text-[11px] font-mono text-slate-400">
-          <span>Model Accuracy</span>
-          <span className="text-violet-300 font-bold">99.4%</span>
-        </div>
-        <div className="w-full h-2 rounded-full bg-white/10 overflow-hidden">
-          <div className="h-full rounded-full bg-gradient-to-r from-violet-500 via-rose-500 to-emerald-400 w-[94%]" />
-        </div>
+      <div className="w-full h-1.5 rounded-full bg-white/10 overflow-hidden">
+        <div className="h-full rounded-full bg-gradient-to-r from-violet-500 via-rose-500 to-emerald-400 w-[94%]" />
       </div>
     </div>
   );
 }
 
-// 4. ERP & Business Operations Widget
-function ErpWidget() {
+function CompactErpWidget() {
   return (
-    <div className="w-full rounded-2xl bg-slate-50 border border-slate-200 p-4 shadow-inner">
-      <div className="flex items-center justify-between text-xs font-mono font-semibold text-slate-600 mb-3">
-        <span className="flex items-center gap-1.5 text-blue-700">
-          <Database className="w-3.5 h-3.5 text-blue-600" />
-          <span>OmniFlow ERP Core</span>
-        </span>
-        <span className="text-[10px] text-blue-800 bg-blue-100 px-2 py-0.5 rounded-full border border-blue-200">
-          Multi-Role RBAC
-        </span>
+    <div className="w-full grid grid-cols-3 gap-1.5 text-[10px] font-mono text-center">
+      <div className="bg-slate-50 dark:bg-slate-950/60 border border-slate-200 dark:border-slate-800 rounded-lg p-1.5">
+        <div className="text-slate-400 text-[9px]">Stock</div>
+        <div className="font-bold text-emerald-600 dark:text-emerald-400">94%</div>
       </div>
-
-      <div className="grid grid-cols-3 gap-2 mb-3">
-        <div className="bg-white border border-slate-200 rounded-xl p-2.5 text-center shadow-xs">
-          <div className="text-[10px] font-mono text-slate-500 uppercase">Inventory</div>
-          <div className="text-xs font-bold text-emerald-600 mt-0.5">94% Stock</div>
-        </div>
-        <div className="bg-white border border-slate-200 rounded-xl p-2.5 text-center shadow-xs">
-          <div className="text-[10px] font-mono text-slate-500 uppercase">Daily Flow</div>
-          <div className="text-xs font-bold text-blue-600 mt-0.5">+$48.2k</div>
-        </div>
-        <div className="bg-white border border-slate-200 rounded-xl p-2.5 text-center shadow-xs">
-          <div className="text-[10px] font-mono text-slate-500 uppercase">Audit</div>
-          <div className="text-xs font-bold text-slate-800 mt-0.5">Logged</div>
-        </div>
+      <div className="bg-slate-50 dark:bg-slate-950/60 border border-slate-200 dark:border-slate-800 rounded-lg p-1.5">
+        <div className="text-slate-400 text-[9px]">Flow</div>
+        <div className="font-bold text-blue-600 dark:text-blue-400">+$48k</div>
       </div>
-
-      <div className="flex items-center justify-between text-[11px] text-slate-600 pt-1">
-        <span className="flex items-center gap-1">
-          <ShieldCheck className="w-3.5 h-3.5 text-blue-600" />
-          <span>Real-time DB Sync</span>
-        </span>
-        <span className="font-mono text-[10px] font-bold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-200">
-          🟢 All Systems Operational
-        </span>
+      <div className="bg-slate-50 dark:bg-slate-950/60 border border-slate-200 dark:border-slate-800 rounded-lg p-1.5">
+        <div className="text-slate-400 text-[9px]">RBAC</div>
+        <div className="font-bold text-slate-800 dark:text-slate-200">Active</div>
       </div>
     </div>
   );
 }
 
-// 5. Data Analytics & BI Widget
-function AnalyticsWidget() {
+function CompactAnalyticsWidget() {
   return (
-    <div className="w-full rounded-2xl bg-slate-900 border border-slate-800 p-4 text-white shadow-inner">
-      <div className="flex items-center justify-between text-xs font-mono mb-3">
-        <span className="flex items-center gap-1.5 text-teal-300">
-          <Activity className="w-3.5 h-3.5 text-teal-400" />
-          <span className="font-semibold">Real-Time BI Stream</span>
+    <div className="w-full rounded-xl bg-slate-900 border border-slate-800 p-2 text-white">
+      <div className="flex items-center justify-between text-[10px] font-mono mb-1.5">
+        <span className="flex items-center gap-1 text-teal-300">
+          <Activity className="w-3 h-3 text-teal-400" />
+          <span>Real-Time Stream</span>
         </span>
-        <span className="text-emerald-400 font-bold bg-emerald-950/70 border border-emerald-500/40 text-[10px] px-2 py-0.5 rounded-full">
-          +38.4% YoY
-        </span>
+        <span className="text-emerald-400 font-bold">+38.4% YoY</span>
       </div>
-
-      {/* Simulated animated multi-bar chart */}
-      <div className="flex items-end justify-between gap-2 h-16 bg-slate-950/70 rounded-xl p-2.5 border border-slate-800/80 mb-3">
-        <div className="w-full bg-gradient-to-t from-teal-600 to-teal-400 rounded-t h-[35%]" />
-        <div className="w-full bg-gradient-to-t from-teal-600 to-teal-400 rounded-t h-[55%]" />
-        <div className="w-full bg-gradient-to-t from-teal-600 to-teal-400 rounded-t h-[45%]" />
-        <div className="w-full bg-gradient-to-t from-teal-600 to-teal-400 rounded-t h-[75%]" />
-        <div className="w-full bg-gradient-to-t from-rose-600 to-rose-400 rounded-t h-[65%]" />
-        <div className="w-full bg-gradient-to-t from-emerald-600 to-emerald-400 rounded-t h-[95%]" />
-      </div>
-
-      <div className="flex items-center justify-between text-[11px] font-mono text-slate-400">
-        <span>ETL Synced 2m ago</span>
-        <span className="text-teal-300 font-semibold">Live Data Pipeline</span>
+      <div className="flex items-end gap-1.5 h-6">
+        <div className="flex-1 bg-teal-500/60 rounded-t h-[40%]" />
+        <div className="flex-1 bg-teal-500/70 rounded-t h-[65%]" />
+        <div className="flex-1 bg-teal-500/80 rounded-t h-[50%]" />
+        <div className="flex-1 bg-rose-500 rounded-t h-[80%]" />
+        <div className="flex-1 bg-emerald-400 rounded-t h-[100%]" />
       </div>
     </div>
   );
 }
 
-// 6. Modern Frontend & UI/UX Widget
-function FrontendWidget() {
-  const [activeToggle, setActiveToggle] = useState(true);
-
+function CompactFrontendWidget() {
   return (
-    <div className="w-full rounded-2xl bg-gradient-to-br from-rose-50/70 via-white to-slate-50 border border-rose-200/80 p-4 shadow-inner">
-      <div className="flex items-center justify-between text-xs font-mono mb-3">
-        <div className="flex items-center gap-1.5 text-rose-700">
-          <Monitor className="w-3.5 h-3.5 text-rose-600" />
-          <span className="font-semibold">Design System Component</span>
-        </div>
-        <span className="text-[10px] text-rose-800 bg-rose-100 font-bold px-2 py-0.5 rounded-full border border-rose-200">
-          60 FPS Fluid
-        </span>
-      </div>
-
-      {/* Interactive UI element preview */}
-      <div className="bg-white border border-slate-200 rounded-xl p-3 flex items-center justify-between shadow-xs mb-3">
-        <div>
-          <div className="text-xs font-bold text-slate-900">Interactive Glassmorphism</div>
-          <div className="text-[10px] text-slate-500 font-mono">Micro-interactions &amp; 3D WebGL</div>
-        </div>
-        <button
-          type="button"
-          onClick={() => setActiveToggle(!activeToggle)}
-          className={cn(
-            'w-11 h-6 flex items-center rounded-full p-1 transition-colors duration-300',
-            activeToggle ? 'bg-rose-600' : 'bg-slate-300'
-          )}
-        >
-          <div
-            className={cn(
-              'bg-white w-4 h-4 rounded-full shadow-md transform transition-transform duration-300',
-              activeToggle ? 'translate-x-5' : 'translate-x-0'
-            )}
-          />
-        </button>
-      </div>
-
-      <div className="flex items-center justify-between text-[11px] font-mono text-slate-600">
-        <span className="text-rose-700 font-semibold">&bull; Core Web Vitals: 100/100</span>
-        <span className="text-slate-500">&bull; a11y Accessible</span>
-      </div>
+    <div className="w-full rounded-xl bg-rose-50/60 dark:bg-rose-950/20 border border-rose-200/70 dark:border-rose-900/40 p-2 text-[10px] font-mono flex items-center justify-between">
+      <span className="text-rose-700 dark:text-rose-300 font-semibold">60 FPS Fluid Design</span>
+      <span className="text-emerald-700 dark:text-emerald-400 font-bold bg-emerald-50 dark:bg-emerald-950/60 px-2 py-0.5 rounded border border-emerald-200 dark:border-emerald-800">
+        100/100 CWV
+      </span>
     </div>
   );
 }
@@ -270,86 +130,117 @@ function FrontendWidget() {
 export function FeatureCard({ id, title, category, tagline, description, tags, metric, metricLabel }: FeatureItemData) {
   const getIcon = () => {
     switch (id) {
-      case 'saas': return <Code2 className="w-5 h-5 text-rose-600" />;
-      case 'automation': return <Zap className="w-5 h-5 text-amber-600" />;
-      case 'ai': return <Cpu className="w-5 h-5 text-violet-600" />;
-      case 'erp': return <Layers className="w-5 h-5 text-blue-600" />;
-      case 'analytics': return <BarChart3 className="w-5 h-5 text-teal-600" />;
-      case 'frontend': return <Monitor className="w-5 h-5 text-rose-600" />;
+      case 'saas': return <Code2 className="w-6 h-6 text-rose-600 dark:text-rose-400" />;
+      case 'automation': return <Zap className="w-6 h-6 text-amber-600 dark:text-amber-400" />;
+      case 'ai': return <Cpu className="w-6 h-6 text-violet-600 dark:text-violet-400" />;
+      case 'erp': return <Layers className="w-6 h-6 text-blue-600 dark:text-blue-400" />;
+      case 'analytics': return <BarChart3 className="w-6 h-6 text-teal-600 dark:text-teal-400" />;
+      case 'frontend': return <Monitor className="w-6 h-6 text-rose-600 dark:text-rose-400" />;
     }
   };
 
   const getBadgeColor = () => {
     switch (id) {
-      case 'saas': return 'bg-rose-50 text-rose-700 border-rose-200';
-      case 'automation': return 'bg-amber-50 text-amber-800 border-amber-200';
-      case 'ai': return 'bg-violet-50 text-violet-800 border-violet-200';
-      case 'erp': return 'bg-blue-50 text-blue-800 border-blue-200';
-      case 'analytics': return 'bg-teal-50 text-teal-800 border-teal-200';
-      case 'frontend': return 'bg-rose-50 text-rose-800 border-rose-200';
+      case 'saas': return 'bg-rose-50 dark:bg-rose-950/50 text-rose-700 dark:text-rose-300 border-rose-200 dark:border-rose-800';
+      case 'automation': return 'bg-amber-50 dark:bg-amber-950/50 text-amber-800 dark:text-amber-300 border-amber-200 dark:border-amber-800';
+      case 'ai': return 'bg-violet-50 dark:bg-violet-950/50 text-violet-800 dark:text-violet-300 border-violet-200 dark:border-violet-800';
+      case 'erp': return 'bg-blue-50 dark:bg-blue-950/50 text-blue-800 dark:text-blue-300 border-blue-200 dark:border-blue-800';
+      case 'analytics': return 'bg-teal-50 dark:bg-teal-950/50 text-teal-800 dark:text-teal-300 border-teal-200 dark:border-teal-800';
+      case 'frontend': return 'bg-rose-50 dark:bg-rose-950/50 text-rose-800 dark:text-rose-300 border-rose-200 dark:border-rose-800';
     }
   };
 
   const getWidget = () => {
     switch (id) {
-      case 'saas': return <SaasWidget />;
-      case 'automation': return <AutomationWidget />;
-      case 'ai': return <AiWidget />;
-      case 'erp': return <ErpWidget />;
-      case 'analytics': return <AnalyticsWidget />;
-      case 'frontend': return <FrontendWidget />;
+      case 'saas': return <CompactSaasWidget />;
+      case 'automation': return <CompactAutomationWidget />;
+      case 'ai': return <CompactAiWidget />;
+      case 'erp': return <CompactErpWidget />;
+      case 'analytics': return <CompactAnalyticsWidget />;
+      case 'frontend': return <CompactFrontendWidget />;
     }
   };
 
   return (
-    <div className="w-full flex flex-col justify-between rounded-3xl backdrop-blur-xl bg-white/90 border border-slate-200/90 hover:border-rose-300 shadow-[0_10px_30px_-5px_rgba(15,23,42,0.04)] hover:shadow-[0_20px_45px_-10px_rgba(225,29,72,0.12)] transition-all duration-500 p-6 sm:p-7 group">
-      <div>
-        {/* Header: Icon + Category Badge */}
-        <div className="flex items-center justify-between mb-5">
-          <div className="w-11 h-11 rounded-2xl bg-slate-50 border border-slate-200 flex items-center justify-center shadow-xs group-hover:scale-105 transition-transform duration-300">
-            {getIcon()}
+    <div className="feature-card-wrapper w-full max-w-sm h-80 group perspective-1000 cursor-pointer">
+      <div className="feature-card-inner relative w-full h-full duration-700 preserve-3d group-hover:[transform:rotateY(180deg)]">
+        
+        {/* Front Face: UI/UX Contextual Design */}
+        <div className="absolute inset-0 w-full h-full backface-hidden rounded-3xl p-6 flex flex-col justify-between backdrop-blur-xl bg-white/90 dark:bg-slate-900/90 border border-slate-200/90 dark:border-slate-800 shadow-[0_10px_30px_-5px_rgba(15,23,42,0.05)] hover:border-rose-300 dark:hover:border-rose-700 transition-all">
+          <div>
+            <div className="flex items-center justify-between mb-3">
+              <div className="w-10 h-10 rounded-2xl bg-slate-100 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 flex items-center justify-center shadow-xs">
+                {getIcon()}
+              </div>
+              <span className={cn('text-[11px] font-mono font-semibold px-2.5 py-0.5 rounded-full border shadow-xs', getBadgeColor())}>
+                {category}
+              </span>
+            </div>
+
+            <h3 className="text-xl font-bold text-slate-950 dark:text-white mb-1 tracking-tight">
+              {title}
+            </h3>
+            <p className="text-xs text-slate-500 dark:text-slate-400 line-clamp-2 mb-3">
+              {tagline}
+            </p>
           </div>
-          <span className={cn('text-xs font-mono font-semibold px-3 py-1 rounded-full border shadow-xs', getBadgeColor())}>
-            {category}
-          </span>
-        </div>
 
-        {/* Title & Tagline */}
-        <h3 className="text-xl sm:text-2xl font-bold text-slate-950 mb-1.5 tracking-tight group-hover:text-rose-600 transition-colors">
-          {title}
-        </h3>
-        <p className="text-xs font-mono text-slate-500 mb-4 font-medium">
-          {tagline}
-        </p>
+          <div className="my-auto">
+            {getWidget()}
+          </div>
 
-        {/* Bespoke Interactive Micro-UI Widget */}
-        <div className="my-5">
-          {getWidget()}
-        </div>
-
-        {/* Description */}
-        <p className="text-sm text-slate-600 leading-relaxed mb-6 font-normal">
-          {description}
-        </p>
-      </div>
-
-      {/* Footer: Tags & Metric Badge */}
-      <div className="pt-4 border-t border-slate-100 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-        <div className="flex flex-wrap gap-1.5">
-          {tags.map((tag, idx) => (
-            <span 
-              key={idx} 
-              className="text-[11px] font-medium px-2.5 py-0.5 rounded-full bg-slate-100 text-slate-700 border border-slate-200/80"
-            >
-              {tag}
+          <div className="pt-2 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between text-[11px] font-mono text-slate-500 dark:text-slate-400">
+            <span className="flex items-center gap-1 text-rose-600 dark:text-rose-400 font-semibold">
+              <RefreshCw className="w-3 h-3 animate-spin-slow" />
+              <span>Hover or scroll to flip</span>
             </span>
-          ))}
+            <span className="font-bold text-slate-900 dark:text-slate-200">{metric}</span>
+          </div>
         </div>
 
-        <div className="shrink-0 flex items-center gap-1.5 text-xs font-mono font-bold text-slate-900 bg-slate-50 px-3 py-1 rounded-xl border border-slate-200">
-          <span>{metric}</span>
-          <span className="text-[10px] text-slate-500 font-normal">{metricLabel}</span>
+        {/* Back Face: Technical Specs & Deep-Dive */}
+        <div className="absolute inset-0 w-full h-full backface-hidden rotate-y-180 rounded-3xl p-6 flex flex-col justify-between bg-slate-950 text-white border border-slate-800 shadow-2xl">
+          <div>
+            <div className="flex items-center justify-between mb-3">
+              <span className={cn('text-[10px] font-mono font-semibold px-2.5 py-0.5 rounded-full border', getBadgeColor())}>
+                {category}
+              </span>
+              <span className="text-[11px] font-mono font-bold text-emerald-400 bg-emerald-950/60 border border-emerald-500/30 px-2 py-0.5 rounded-full">
+                {metric} {metricLabel}
+              </span>
+            </div>
+
+            <h3 className="text-lg font-bold text-white mb-2">
+              {title}
+            </h3>
+
+            <p className="text-xs text-slate-300 leading-relaxed line-clamp-4 mb-3">
+              {description}
+            </p>
+          </div>
+
+          <div>
+            <div className="flex flex-wrap gap-1 mb-3">
+              {tags.map((tag, idx) => (
+                <span 
+                  key={idx} 
+                  className="text-[10px] font-mono px-2 py-0.5 rounded-md bg-white/10 text-slate-200 border border-white/10"
+                >
+                  {tag}
+                </span>
+              ))}
+            </div>
+
+            <a
+              href="#contact"
+              className="inline-flex items-center justify-between w-full text-xs font-semibold text-rose-400 hover:text-rose-300 pt-2 border-t border-slate-800 transition-colors"
+            >
+              <span>Discuss Architecture</span>
+              <ArrowRight className="w-3.5 h-3.5" />
+            </a>
+          </div>
         </div>
+
       </div>
     </div>
   );

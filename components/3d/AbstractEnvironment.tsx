@@ -5,11 +5,11 @@ import { useFrame } from '@react-three/fiber';
 import { Points, PointMaterial } from '@react-three/drei';
 import * as THREE from 'three';
 
-export default function AbstractEnvironment() {
+export default function AbstractEnvironment({ isDark = false }: { isDark?: boolean }) {
   const pointsRef = useRef<THREE.Points>(null);
   const accentPointsRef = useRef<THREE.Points>(null);
 
-  // Generate dense dark slate particles
+  // Generate dense particles
   const particleCount = 6500;
   const positions = useMemo(() => {
     const positions = new Float32Array(particleCount * 3);
@@ -55,16 +55,16 @@ export default function AbstractEnvironment() {
 
   return (
     <group rotation={[0, 0, Math.PI / 4]}>
-      {/* Dark Slate Nodes */}
+      {/* Primary Particle Nodes */}
       <Points ref={pointsRef} positions={positions} stride={3} frustumCulled={false}>
         <PointMaterial
           transparent
-          color="#1e293b" // Deep dark slate for high contrast
-          size={0.034}
+          color={isDark ? '#e2e8f0' : '#1e293b'}
+          size={isDark ? 0.028 : 0.034}
           sizeAttenuation={true}
           depthWrite={false}
-          opacity={0.65}
-          blending={THREE.NormalBlending}
+          opacity={isDark ? 0.65 : 0.65}
+          blending={isDark ? THREE.AdditiveBlending : THREE.NormalBlending}
         />
       </Points>
 
@@ -72,12 +72,12 @@ export default function AbstractEnvironment() {
       <Points ref={accentPointsRef} positions={accentPositions} stride={3} frustumCulled={false}>
         <PointMaterial
           transparent
-          color="#e11d48" // Rose-600 accent
-          size={0.038}
+          color={isDark ? '#f43f5e' : '#e11d48'}
+          size={isDark ? 0.035 : 0.038}
           sizeAttenuation={true}
           depthWrite={false}
-          opacity={0.75}
-          blending={THREE.NormalBlending}
+          opacity={isDark ? 0.85 : 0.75}
+          blending={isDark ? THREE.AdditiveBlending : THREE.NormalBlending}
         />
       </Points>
     </group>
