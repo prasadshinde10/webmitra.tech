@@ -72,9 +72,7 @@ export function Navbar() {
         <div className="hidden md:flex items-center gap-3.5">
           <ThemeToggle />
           <a
-            href="https://wa.me/918411825361?text=Hi%20WebMitra.Tech%2C%20I%20want%20to%20discuss%20a%20project"
-            target="_blank"
-            rel="noopener noreferrer"
+            href="tel:+918411825361"
             className="text-xs text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors font-mono"
           >
             +91 84118 25361
@@ -141,12 +139,10 @@ export function Navbar() {
           </a>
           <div className="pt-4 border-t border-slate-200 dark:border-slate-800 flex flex-col gap-3">
             <a
-              href="https://wa.me/918411825361?text=Hi%20WebMitra.Tech%2C%20I%20want%20to%20discuss%20a%20project"
-              target="_blank"
-              rel="noopener noreferrer"
+              href="tel:+918411825361"
               className="text-xs text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white font-mono"
             >
-              WhatsApp: +91 84118 25361
+              Direct: +91 84118 25361
             </a>
             <a
               href="#contact"

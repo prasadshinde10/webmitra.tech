@@ -5,7 +5,6 @@ import SmoothScroll from "@/components/animations/SmoothScroll";
 import GlobalCanvas from "@/components/3d/GlobalCanvas";
 import { Navbar } from "@/components/ui/Navbar";
 import { Footer } from "@/components/ui/Footer";
-import { WhatsAppButton } from "@/components/ui/WhatsAppButton";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -74,7 +73,6 @@ export default function RootLayout({
             <Navbar />
             {children}
             <Footer />
-            <WhatsAppButton />
           </SmoothScroll>
         </ThemeProvider>
       </body>

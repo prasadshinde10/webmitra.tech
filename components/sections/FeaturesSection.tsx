@@ -70,6 +70,8 @@ const features: FeatureItemData[] = [
   },
 ];
 
+import { DiaTextReveal } from "@/registry/magicui/dia-text-reveal";
+
 export default function FeaturesSection() {
   const sectionRef = useRef<HTMLDivElement>(null);
 
@@ -103,8 +105,13 @@ export default function FeaturesSection() {
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-rose-50 dark:bg-rose-950/50 border border-rose-200 dark:border-rose-900 text-xs font-mono text-rose-700 dark:text-rose-300 font-semibold mb-4 shadow-xs">
             <span>Core Capabilities</span>
           </div>
-          <h2 className="text-4xl sm:text-5xl lg:text-6xl font-black text-slate-950 dark:text-white mb-4 tracking-tight">
-            Comprehensive Software Ecosystem
+          <h2 className="text-center text-3xl font-bold tracking-tight sm:text-5xl lg:text-6xl text-slate-950 dark:text-white mb-4">
+            Comprehensive Software Ecosystem to{" "}
+            <DiaTextReveal
+              text={["build", "ship", "scale", "smarter", "faster", "easier"]}
+              repeat
+              repeatDelay={1.2}
+            />
           </h2>
           <p className="text-slate-600 dark:text-slate-300 max-w-3xl mx-auto text-base sm:text-lg text-balance">
             We don&apos;t just build websites. We deliver full-stack technology solutions &mdash; from bespoke enterprise software and automation to predictive AI and scalable digital infrastructure.

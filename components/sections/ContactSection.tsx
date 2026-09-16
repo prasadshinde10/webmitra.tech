@@ -115,7 +115,7 @@ export default function ContactSection() {
               <p className="text-emerald-600 dark:text-emerald-400 font-medium text-center mt-4">Message sent successfully! We will contact you soon.</p>
             )}
             {submitStatus === 'error' && (
-              <p className="text-rose-600 dark:text-rose-400 font-medium text-center mt-4">Something went wrong. Please try again or reach out via WhatsApp.</p>
+              <p className="text-rose-600 dark:text-rose-400 font-medium text-center mt-4">Something went wrong. Please try again or reach out directly.</p>
             )}
           </form>
         </div>
