@@ -1,43 +1,72 @@
 'use client';
 
 import { useEffect, useRef } from 'react';
-import { FeatureCard } from '../ui/FeatureCard';
-import { Monitor, Cpu, Code2, Zap, Layers, BarChart3 } from 'lucide-react';
+import { FeatureCard, FeatureItemData } from '../ui/FeatureCard';
 import gsap from 'gsap';
 import ScrollTrigger from 'gsap/ScrollTrigger';
 
 gsap.registerPlugin(ScrollTrigger);
 
-const features = [
+const features: FeatureItemData[] = [
   {
+    id: 'saas',
     title: 'Custom Software & SaaS',
-    description: 'Custom web apps, enterprise software, SaaS platforms, customer portals, and scalable API backend architectures engineered for high reliability.',
-    icon: Code2,
+    category: 'Full-Stack Architecture',
+    tagline: 'High-concurrency microservices & multi-tenant SaaS platforms.',
+    description: 'Bespoke web applications, SaaS platforms, customer portals, and high-throughput REST/GraphQL APIs engineered with resilient databases and cloud infrastructure.',
+    tags: ['Next.js 14', 'Node / FastAPI', 'PostgreSQL', 'Docker'],
+    metric: '99.99%',
+    metricLabel: 'SLA Uptime',
   },
   {
+    id: 'automation',
     title: 'Process Automation',
-    description: 'If a workflow is manual, repetitive, or dependent on disconnected spreadsheets, we build automated pipelines, document processing, and approval chains.',
-    icon: Zap,
+    category: 'Zero-Manual Ops',
+    tagline: 'End-to-end webhook pipelines & intelligent document workflows.',
+    description: 'If your business operations are manual, repetitive, or trapped in disconnected spreadsheets, we build event-driven pipelines, instant API syncs, and automated approval logic.',
+    tags: ['Webhook Pipelines', 'Doc Extraction', 'Approval Logic', 'Sync APIs'],
+    metric: '10x',
+    metricLabel: 'Speed Gain',
   },
   {
+    id: 'ai',
     title: 'AI & Machine Learning',
-    description: 'Predictive analytics, forecasting engines, intelligent document processing, recommendation models, and practical Generative AI integrations.',
-    icon: Cpu,
+    category: 'Intelligent Systems',
+    tagline: 'Predictive forecasting, custom embeddings & Generative AI.',
+    description: 'Enterprise AI integrations including predictive demand modeling, RAG-powered vector search, document NLP classifiers, and automated recommendation engines.',
+    tags: ['Predictive ML', 'Vector RAG / LLM', 'NLP Pipelines', 'PyTorch / Python'],
+    metric: '99.4%',
+    metricLabel: 'Accuracy',
   },
   {
+    id: 'erp',
     title: 'ERP & Business Systems',
-    description: 'Customized ERP solutions, inventory and operations management, CRM platforms, and complete enterprise process digitization.',
-    icon: Layers,
+    category: 'Enterprise Operations',
+    tagline: 'Centralized operations, supply chain & role-based RBAC.',
+    description: 'Customized ERP solutions, inventory control, automated financial invoicing, customer relationship management (CRM), and unified internal digitization.',
+    tags: ['Custom ERP', 'Inventory Engine', 'Multi-Role RBAC', 'Audit Trail'],
+    metric: '100%',
+    metricLabel: 'Data Integrity',
   },
   {
-    title: 'Data & Analytics',
-    description: 'Interactive business intelligence dashboards, real-time data pipelines, automated reporting, and decision-support systems that unlock data value.',
-    icon: BarChart3,
+    id: 'analytics',
+    title: 'Data & BI Analytics',
+    category: 'Decision Clarity',
+    tagline: 'Executive dashboards, real-time KPI streams & automated ETL.',
+    description: 'Interactive business intelligence dashboards, real-time data streaming pipelines, and automated reporting systems that convert raw operational data into strategic decisions.',
+    tags: ['Executive BI', 'Real-Time ETL', 'Custom Dashboards', 'KPI Alerts'],
+    metric: '+38.4%',
+    metricLabel: 'Avg. ROI Growth',
   },
   {
+    id: 'frontend',
     title: 'Modern Frontend & UX',
-    description: 'High-performance web apps, interactive 3D visualizations, component design systems, and responsive, accessible mobile-first interfaces.',
-    icon: Monitor,
+    category: 'High-Performance UI',
+    tagline: 'Fluid 60 FPS interfaces, 3D WebGL & component design systems.',
+    description: 'High-performance web applications, interactive 3D WebGL visualizations, component design systems, and responsive, accessible, mobile-first architectures.',
+    tags: ['Three.js / WebGL', 'GSAP Animation', 'Tailwind CSS', 'Accessible UI'],
+    metric: '100/100',
+    metricLabel: 'Core Web Vitals',
   },
 ];
 
@@ -46,22 +75,24 @@ export default function FeaturesSection() {
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      // 3D Flip animation on scroll
-      gsap.utils.toArray<HTMLElement>('.feature-card-inner').forEach((card) => {
-        gsap.fromTo(card,
-          { rotationY: 0 },
-          {
-            rotationY: 180,
-            ease: 'power2.inOut',
-            scrollTrigger: {
-              trigger: card,
-              start: 'top 80%',
-              end: 'top 45%',
-              scrub: 0.8,
-            }
-          }
-        );
-      });
+      const cards = gsap.utils.toArray<HTMLElement>('.feature-card-item');
+      
+      gsap.fromTo(
+        cards,
+        { y: 40, opacity: 0 },
+        {
+          y: 0,
+          opacity: 1,
+          duration: 0.8,
+          stagger: 0.12,
+          ease: 'power3.out',
+          scrollTrigger: {
+            trigger: sectionRef.current,
+            start: 'top 75%',
+            once: true,
+          },
+        }
+      );
     }, sectionRef);
 
     return () => ctx.revert();
@@ -71,20 +102,22 @@ export default function FeaturesSection() {
     <section id="features" ref={sectionRef} className="relative w-full py-28 flex flex-col items-center justify-center">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
         <div className="text-center mb-16">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-rose-50 border border-rose-200 text-xs font-mono text-rose-700 mb-4 shadow-xs">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-rose-50 border border-rose-200 text-xs font-mono text-rose-700 font-semibold mb-4 shadow-xs">
             <span>Core Capabilities</span>
           </div>
-          <h2 className="text-4xl sm:text-5xl font-black text-slate-950 mb-4 tracking-tight">
+          <h2 className="text-4xl sm:text-5xl lg:text-6xl font-black text-slate-950 mb-4 tracking-tight">
             Comprehensive Software Ecosystem
           </h2>
-          <p className="text-slate-600 max-w-2xl mx-auto text-base sm:text-lg">
-            We don&apos;t just build websites. We deliver full-stack technology solutions &mdash; from bespoke enterprise software and automation to predictive AI and scalable infrastructure.
+          <p className="text-slate-600 max-w-3xl mx-auto text-base sm:text-lg text-balance">
+            We don&apos;t just build websites. We deliver full-stack technology solutions &mdash; from bespoke enterprise software and automation to predictive AI and scalable digital infrastructure.
           </p>
         </div>
         
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 justify-items-center">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 items-stretch">
           {features.map((feature, idx) => (
-            <FeatureCard key={idx} {...feature} />
+            <div key={idx} className="feature-card-item flex">
+              <FeatureCard {...feature} />
+            </div>
           ))}
         </div>
       </div>
