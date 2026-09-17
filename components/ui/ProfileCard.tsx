@@ -1,54 +1,76 @@
-import React from 'react';
-import { cn } from '@/lib/utils';
+'use client';
 
-interface ProfileCardProps {
+import React from 'react';
+import Image from 'next/image';
+import { cn } from '@/lib/utils';
+import { Backlight } from '@/registry/magicui/backlight';
+
+export interface ProfileCardProps {
   name: string;
   role: string;
-  skills: string[];
-  projects: string[];
+  skills?: string[];
   imageUrl: string;
-  index: number;
   className?: string;
+  imagePosition?: string;
 }
 
-export function ProfileCard({ name, role, skills, projects, imageUrl, index, className }: ProfileCardProps) {
+export function ProfileCard({
+  name,
+  role,
+  skills,
+  imageUrl,
+  className,
+  imagePosition = 'object-top',
+}: ProfileCardProps) {
   return (
-    <div 
-      className={cn('profile-card sticky top-24 md:top-32 w-full max-w-4xl mx-auto min-h-[520px] md:h-[60vh] rounded-3xl overflow-hidden shadow-[0_20px_60px_-15px_rgba(15,23,42,0.08)] dark:shadow-black/60 flex flex-col md:flex-row border border-slate-200/90 dark:border-slate-800 bg-white dark:bg-slate-900 backdrop-blur-md', className)}
-      style={{ zIndex: index, transformOrigin: 'top center' }}
-    >
-      <div className="w-full h-48 sm:h-56 md:w-1/3 md:h-full relative shrink-0 bg-slate-100 dark:bg-slate-950">
-        <div 
-          className="absolute inset-0 bg-cover bg-center"
-          style={{ backgroundImage: `url(${imageUrl})` }}
-        />
-        <div className="absolute inset-0 bg-gradient-to-b md:bg-gradient-to-r from-transparent via-transparent to-white dark:to-slate-900 opacity-90 md:opacity-100" />
-      </div>
-      
-      <div className="w-full md:w-2/3 p-6 sm:p-8 md:p-12 flex flex-col justify-center bg-white dark:bg-slate-900">
-        <h3 className="text-2xl sm:text-3xl md:text-4xl font-bold text-slate-950 dark:text-white mb-1 md:mb-2">{name}</h3>
-        <p className="text-rose-600 dark:text-rose-400 font-semibold text-base sm:text-lg md:text-xl font-mono mb-4 md:mb-6">{role}</p>
-        
-        <div className="mb-4 md:mb-6">
-          <h4 className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-2 md:mb-3">Core Skills</h4>
-          <div className="flex flex-wrap gap-1.5 md:gap-2">
-            {skills.map((skill, i) => (
-              <span key={i} className="px-2.5 py-1 rounded-full bg-slate-100 dark:bg-slate-800 text-xs sm:text-sm border border-slate-200/80 dark:border-slate-700 text-slate-800 dark:text-slate-200 font-medium">
-                {skill}
-              </span>
-            ))}
+    <Backlight blur={35} className="w-full h-full">
+      <div
+        className={cn(
+          'group relative h-full flex flex-col rounded-3xl overflow-hidden border border-slate-200/90 dark:border-slate-800 bg-white/90 dark:bg-slate-900/90 backdrop-blur-xl shadow-[0_10px_30px_-5px_rgba(15,23,42,0.05)] hover:border-rose-300 dark:hover:border-rose-700/60 transition-all duration-300 hover:shadow-xl hover:-translate-y-1',
+          className
+        )}
+      >
+        {/* Photo Container with Fixed Aspect Ratio */}
+        <div className="relative w-full aspect-[4/5] overflow-hidden bg-slate-100 dark:bg-slate-950">
+          <Image
+            src={imageUrl}
+            alt={name}
+            fill
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+            className={cn(
+              'object-cover transition-transform duration-500 group-hover:scale-105',
+              imagePosition
+            )}
+            priority
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-slate-950/60 via-transparent to-transparent opacity-0 group-hover:opacity-30 transition-opacity duration-300" />
+        </div>
+
+        {/* Content Details: Name, Role, and Clean Skills */}
+        <div className="p-6 sm:p-7 flex flex-col flex-1 justify-between bg-white dark:bg-slate-900/90">
+          <div>
+            <h3 className="text-xl sm:text-2xl font-bold tracking-tight text-slate-950 dark:text-white mb-1.5 group-hover:text-rose-600 dark:group-hover:text-rose-400 transition-colors">
+              {name}
+            </h3>
+            <p className="text-xs sm:text-sm font-mono font-semibold text-rose-600 dark:text-rose-400 mb-4 leading-snug">
+              {role}
+            </p>
           </div>
-        </div>
-        
-        <div>
-          <h4 className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-2 md:mb-3">Key Projects</h4>
-          <ul className="list-disc list-inside text-slate-700 dark:text-slate-300 space-y-1.5 text-xs sm:text-sm">
-            {projects.map((project, i) => (
-              <li key={i}>{project}</li>
-            ))}
-          </ul>
+
+          {skills && skills.length > 0 && (
+            <div className="pt-4 border-t border-slate-100 dark:border-slate-800/80 flex flex-wrap gap-1.5">
+              {skills.map((skill, idx) => (
+                <span
+                  key={idx}
+                  className="text-[11px] font-mono font-medium px-2.5 py-0.5 rounded-full bg-slate-100 dark:bg-slate-800/80 border border-slate-200/80 dark:border-slate-700 text-slate-700 dark:text-slate-300"
+                >
+                  {skill}
+                </span>
+              ))}
+            </div>
+          )}
         </div>
       </div>
-    </div>
+    </Backlight>
   );
 }
