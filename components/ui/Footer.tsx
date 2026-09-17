@@ -1,6 +1,7 @@
 import React from 'react';
 import Image from 'next/image';
-import { Mail, Phone, MapPin, Clock, ArrowUpRight } from 'lucide-react';
+import { Mail, Phone, MapPin, Clock } from 'lucide-react';
+import { InteractiveHoverButton } from '@/registry/magicui/interactive-hover-button';
 
 export function Footer() {
   return (
@@ -24,13 +25,9 @@ export function Footer() {
             Next-generation software solutions company. We architect, automate, and scale digital operations so you can focus entirely on growing your business.
           </p>
           <div className="flex items-center gap-3">
-            <a
-              href="#contact"
-              className="px-3.5 py-1.5 rounded-full bg-white dark:bg-slate-900 hover:bg-slate-100 dark:hover:bg-slate-800 text-xs font-semibold text-slate-800 dark:text-slate-200 border border-slate-200 dark:border-slate-800 shadow-xs transition-colors flex items-center gap-1.5"
-            >
-              <span>Get in Touch</span>
-              <ArrowUpRight className="w-3 h-3 text-rose-500" />
-            </a>
+            <InteractiveHoverButton href="#contact" className="py-2 px-5 text-xs">
+              Get in Touch
+            </InteractiveHoverButton>
           </div>
         </div>
 

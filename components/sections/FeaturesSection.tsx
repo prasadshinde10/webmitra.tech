@@ -71,6 +71,7 @@ const features: FeatureItemData[] = [
 ];
 
 import { DiaTextReveal } from "@/registry/magicui/dia-text-reveal";
+import { Backlight } from "@/registry/magicui/backlight";
 
 export default function FeaturesSection() {
   const sectionRef = useRef<HTMLDivElement>(null);
@@ -120,7 +121,9 @@ export default function FeaturesSection() {
         
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 justify-items-center">
           {features.map((feature, idx) => (
-            <FeatureCard key={idx} {...feature} />
+            <Backlight key={idx} blur={40} className="w-full max-w-sm">
+              <FeatureCard {...feature} />
+            </Backlight>
           ))}
         </div>
       </div>

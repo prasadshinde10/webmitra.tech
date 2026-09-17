@@ -3,7 +3,7 @@
 import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import Text3DFlip from '@/registry/magicui/text-3d-flip';
-import { RainbowButton } from '@/registry/magicui/rainbow-button';
+import { InteractiveHoverButton } from '@/registry/magicui/interactive-hover-button';
 
 export default function HeroSection() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -64,7 +64,7 @@ export default function HeroSection() {
         </div>
 
         <div className="hero-text flex flex-col sm:flex-row items-center justify-center gap-4">
-          <RainbowButton href="#contact">Start a Project</RainbowButton>
+          <InteractiveHoverButton href="#contact">Start a Project</InteractiveHoverButton>
           <a
             href="#features"
             className="w-full sm:w-auto px-8 py-3.5 rounded-full bg-white/80 dark:bg-slate-900/80 hover:bg-white dark:hover:bg-slate-800 text-slate-800 dark:text-slate-200 font-semibold text-sm border border-slate-200/90 dark:border-slate-800 transition-all duration-300 hover:scale-105 shadow-xs"

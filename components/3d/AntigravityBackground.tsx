@@ -9,186 +9,141 @@ interface AntigravityBackgroundProps {
   isDark?: boolean;
 }
 
-// Minimalist Wireframe Tech Node
-function MinimalTechNode({
-  position,
-  scale = 0.5,
-  speed = 0.6,
-  offset = 0,
-  isDark = true,
-}: {
-  position: [number, number, number];
-  scale?: number;
-  speed?: number;
-  offset?: number;
-  isDark?: boolean;
-}) {
-  const meshRef = useRef<THREE.Group>(null);
-  const basePos = useRef(position);
+// Subtle Floating Bubbles & Soft Stars Field
+function FloatingBubblesAndStars({ isDark = true }: { isDark?: boolean }) {
+  const bubblesRef = useRef<THREE.Points>(null);
+  const starsRef = useRef<THREE.Points>(null);
 
-  useFrame((state) => {
-    if (!meshRef.current) return;
-    const t = state.clock.getElapsedTime() * speed + offset;
+  // 160 Soft Floating Bubbles
+  const bubbleCount = 160;
+  const [bubblePositions, bubbleVelocities] = useMemo(() => {
+    const pos = new Float32Array(bubbleCount * 3);
+    const vel = new Float32Array(bubbleCount);
 
-    // Gentle upward & sinusoidal floating
-    meshRef.current.position.y = basePos.current[1] + Math.sin(t) * 0.18;
-    meshRef.current.position.x = basePos.current[0] + Math.cos(t * 0.7) * 0.08;
-
-    // Slow tranquil rotation
-    meshRef.current.rotation.x += 0.003 * speed;
-    meshRef.current.rotation.y += 0.005 * speed;
-  });
-
-  const primaryColor = isDark ? '#00f2fe' : '#0284c7';
-
-  return (
-    <group ref={meshRef} position={position} scale={scale}>
-      <mesh>
-        <octahedronGeometry args={[0.7, 0]} />
-        <meshBasicMaterial
-          color={primaryColor}
-          wireframe
-          transparent
-          opacity={isDark ? 0.35 : 0.25}
-        />
-      </mesh>
-      {/* Inner subtle core */}
-      <mesh scale={0.35}>
-        <octahedronGeometry args={[0.7, 0]} />
-        <meshBasicMaterial
-          color={isDark ? '#4facfe' : '#38bdf8'}
-          transparent
-          opacity={isDark ? 0.6 : 0.4}
-        />
-      </mesh>
-    </group>
-  );
-}
-
-// Sparse Antigravity Particle Field with Upward Drift
-function SparseAntigravityParticles({ isDark = true }: { isDark?: boolean }) {
-  const pointsRef = useRef<THREE.Points>(null);
-  const count = 380;
-
-  // Initialize sparse positions with custom vertical drift velocities
-  const [positions, velocities] = useMemo(() => {
-    const pos = new Float32Array(count * 3);
-    const vel = new Float32Array(count);
-
-    for (let i = 0; i < count; i++) {
-      pos[i * 3] = (Math.random() - 0.5) * 12; // X
-      pos[i * 3 + 1] = (Math.random() - 0.5) * 10; // Y
-      pos[i * 3 + 2] = (Math.random() - 0.5) * 6; // Z
-      vel[i] = 0.003 + Math.random() * 0.006; // Slow vertical upward drift speed
+    for (let i = 0; i < bubbleCount; i++) {
+      pos[i * 3] = (Math.random() - 0.5) * 16;     // X
+      pos[i * 3 + 1] = (Math.random() - 0.5) * 12; // Y
+      pos[i * 3 + 2] = (Math.random() - 0.5) * 6;  // Z
+      vel[i] = 0.002 + Math.random() * 0.004;      // Gentle upward floating speed
     }
 
     return [pos, vel];
-  }, [count]);
+  }, [bubbleCount]);
 
-  useFrame(() => {
-    if (!pointsRef.current) return;
-    const posAttr = pointsRef.current.geometry.attributes.position;
-    const array = posAttr.array as Float32Array;
+  // 240 Distant Soft Stars
+  const starCount = 240;
+  const starPositions = useMemo(() => {
+    const pos = new Float32Array(starCount * 3);
+    for (let i = 0; i < starCount; i++) {
+      pos[i * 3] = (Math.random() - 0.5) * 20;
+      pos[i * 3 + 1] = (Math.random() - 0.5) * 16;
+      pos[i * 3 + 2] = -2 - Math.random() * 6; // Background depth
+    }
+    return pos;
+  }, [starCount]);
 
-    for (let i = 0; i < count; i++) {
-      // Antigravity slow upward drift
-      array[i * 3 + 1] += velocities[i];
+  useFrame((state) => {
+    const time = state.clock.getElapsedTime();
 
-      // Seamless reset when drifting past top threshold
-      if (array[i * 3 + 1] > 5) {
-        array[i * 3 + 1] = -5;
-        array[i * 3] = (Math.random() - 0.5) * 12;
+    // Floating bubbles animation
+    if (bubblesRef.current) {
+      const posAttr = bubblesRef.current.geometry.attributes.position;
+      const array = posAttr.array as Float32Array;
+
+      for (let i = 0; i < bubbleCount; i++) {
+        // Slow vertical antigravity floating
+        array[i * 3 + 1] += bubbleVelocities[i];
+        // Subtle lateral sinusoidal sway
+        array[i * 3] += Math.sin(time * 0.5 + i) * 0.0008;
+
+        // Seamless wrap when drifting past top threshold
+        if (array[i * 3 + 1] > 6) {
+          array[i * 3 + 1] = -6;
+          array[i * 3] = (Math.random() - 0.5) * 16;
+        }
       }
+
+      posAttr.needsUpdate = true;
     }
 
-    posAttr.needsUpdate = true;
+    // Stars gentle slow drift
+    if (starsRef.current) {
+      starsRef.current.rotation.y = time * 0.008;
+      starsRef.current.rotation.x = time * 0.004;
+    }
   });
 
   return (
-    <Points ref={pointsRef} positions={positions} stride={3} frustumCulled={false}>
-      <PointMaterial
-        transparent
-        color={isDark ? '#00f2fe' : '#0284c7'}
-        size={isDark ? 0.032 : 0.028}
-        sizeAttenuation={true}
-        depthWrite={false}
-        opacity={isDark ? 0.55 : 0.4}
-        blending={isDark ? THREE.AdditiveBlending : THREE.NormalBlending}
-      />
-    </Points>
+    <>
+      {/* Soft Ambient Stars */}
+      <Points ref={starsRef} positions={starPositions} stride={3} frustumCulled={false}>
+        <PointMaterial
+          transparent
+          color={isDark ? '#e2e8f0' : '#94a3b8'}
+          size={isDark ? 0.024 : 0.02}
+          sizeAttenuation={true}
+          depthWrite={false}
+          opacity={isDark ? 0.45 : 0.35}
+          blending={isDark ? THREE.AdditiveBlending : THREE.NormalBlending}
+        />
+      </Points>
+
+      {/* Floating Luminous Bubbles */}
+      <Points ref={bubblesRef} positions={bubblePositions} stride={3} frustumCulled={false}>
+        <PointMaterial
+          transparent
+          color={isDark ? '#38bdf8' : '#0284c7'}
+          size={isDark ? 0.045 : 0.038}
+          sizeAttenuation={true}
+          depthWrite={false}
+          opacity={isDark ? 0.65 : 0.45}
+          blending={isDark ? THREE.AdditiveBlending : THREE.NormalBlending}
+        />
+      </Points>
+    </>
   );
 }
 
-// Clean Minimal Antigravity Scene
+// Clean Minimal Hero Background Scene
 export default function AntigravityBackground({ isDark = true }: AntigravityBackgroundProps) {
   const groupRef = useRef<THREE.Group>(null);
 
-  // Subtle mouse-parallax interaction
+  // Gentle mouse-parallax interaction
   useFrame((state) => {
     if (!groupRef.current) return;
     const { x, y } = state.pointer; // -1 to 1
 
     groupRef.current.rotation.y = THREE.MathUtils.lerp(
       groupRef.current.rotation.y,
-      x * 0.08,
+      x * 0.05,
       0.03
     );
     groupRef.current.rotation.x = THREE.MathUtils.lerp(
       groupRef.current.rotation.x,
-      -y * 0.06,
+      -y * 0.04,
       0.03
     );
     groupRef.current.position.x = THREE.MathUtils.lerp(
       groupRef.current.position.x,
-      x * 0.15,
+      x * 0.12,
       0.03
     );
     groupRef.current.position.y = THREE.MathUtils.lerp(
       groupRef.current.position.y,
-      y * 0.12,
+      y * 0.1,
       0.03
     );
   });
 
   return (
     <>
-      <ambientLight intensity={isDark ? 0.4 : 0.7} />
-      <pointLight position={[-4, 3, 2]} color="#00f2fe" intensity={isDark ? 1.5 : 0.8} distance={12} />
-      <pointLight position={[4, -3, 2]} color="#4facfe" intensity={isDark ? 1.5 : 0.8} distance={12} />
+      <ambientLight intensity={isDark ? 0.4 : 0.8} />
+      <pointLight position={[-4, 3, 2]} color="#00f2fe" intensity={isDark ? 1.2 : 0.6} distance={14} />
+      <pointLight position={[4, -3, 2]} color="#4facfe" intensity={isDark ? 1.2 : 0.6} distance={14} />
 
       <group ref={groupRef}>
-        {/* Sparse Minimalist Floating Tech Nodes */}
-        <MinimalTechNode
-          position={[-3.8, 1.6, -1.5]}
-          scale={0.5}
-          speed={0.5}
-          offset={0}
-          isDark={isDark}
-        />
-        <MinimalTechNode
-          position={[3.9, 1.8, -1.8]}
-          scale={0.45}
-          speed={0.55}
-          offset={2}
-          isDark={isDark}
-        />
-        <MinimalTechNode
-          position={[-3.6, -1.8, -1.2]}
-          scale={0.4}
-          speed={0.45}
-          offset={3.5}
-          isDark={isDark}
-        />
-        <MinimalTechNode
-          position={[3.7, -1.5, -1.0]}
-          scale={0.48}
-          speed={0.6}
-          offset={1.2}
-          isDark={isDark}
-        />
-
-        {/* Sparse Antigravity Particle Field */}
-        <SparseAntigravityParticles isDark={isDark} />
+        {/* Minimal clean floating bubbles and soft stars only */}
+        <FloatingBubblesAndStars isDark={isDark} />
       </group>
     </>
   );

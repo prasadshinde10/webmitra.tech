@@ -13,6 +13,7 @@ import {
   ArrowRight,
   CheckCircle2
 } from 'lucide-react';
+import { TypingAnimation } from '@/registry/magicui/typing-animation';
 
 const industries = [
   {
@@ -124,9 +125,9 @@ export default function IndustriesSection() {
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-rose-50 dark:bg-rose-950/50 border border-rose-200 dark:border-rose-900 text-xs font-mono text-rose-700 dark:text-rose-300 mb-4 shadow-xs">
             <span>Industry-Specific Solutions</span>
           </div>
-          <h2 className="text-4xl sm:text-5xl font-black text-slate-950 dark:text-white mb-4 tracking-tight">
+          <TypingAnimation className="text-3xl sm:text-4xl md:text-5xl font-black text-slate-950 dark:text-white mb-4 tracking-tight">
             Tailored to Your Operational Workflows
-          </h2>
+          </TypingAnimation>
           <p className="text-slate-600 dark:text-slate-300 max-w-3xl mx-auto text-base sm:text-lg text-balance">
             Every industry has unique workflows, constraints, and operational bottlenecks. We don&apos;t offer one-size-fits-all software. <strong className="text-slate-900 dark:text-white font-semibold">We understand the problem first and engineer the technology around it.</strong>
           </p>
