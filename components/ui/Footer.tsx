@@ -1,6 +1,6 @@
 import React from 'react';
 import Image from 'next/image';
-import { Mail, Phone, MapPin, Clock } from 'lucide-react';
+import { Mail, MapPin, Clock } from 'lucide-react';
 import { InteractiveHoverButton } from '@/registry/magicui/interactive-hover-button';
 
 export function Footer() {
@@ -76,12 +76,6 @@ export function Footer() {
             <li className="flex items-start gap-2.5">
               <MapPin className="w-4 h-4 text-rose-500 shrink-0 mt-1" />
               <span>Chhatrapati Sambhajinagar, Maharashtra, India</span>
-            </li>
-            <li className="flex items-center gap-2.5">
-              <Phone className="w-4 h-4 text-rose-500 shrink-0" />
-              <a href="tel:+918411825361" className="hover:text-rose-600 dark:hover:text-rose-400 transition-colors">
-                +91 84118 25361
-              </a>
             </li>
             <li className="flex items-center gap-2.5">
               <Mail className="w-4 h-4 text-rose-500 shrink-0" />

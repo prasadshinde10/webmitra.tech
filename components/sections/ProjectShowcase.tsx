@@ -2,6 +2,7 @@
 
 import { useEffect, useRef } from 'react';
 import { ProjectItem } from '../ui/ProjectItem';
+import { TextAnimate } from '@/registry/magicui/text-animate';
 import gsap from 'gsap';
 import ScrollTrigger from 'gsap/ScrollTrigger';
 
@@ -72,7 +73,14 @@ export default function ProjectShowcase() {
   return (
     <section id="projects" ref={sectionRef} className="relative w-full h-screen overflow-hidden bg-white dark:bg-slate-950 transition-colors">
       <div className="absolute top-6 left-6 md:top-20 md:left-20 z-10">
-        <h2 className="text-3xl sm:text-5xl md:text-7xl font-black text-slate-950 dark:text-white tracking-tight">Selected Works</h2>
+        <TextAnimate
+          animation="slideUp"
+          by="word"
+          as="h2"
+          className="text-3xl md:text-5xl font-bold tracking-tight text-slate-950 dark:text-white"
+        >
+          Selected Works
+        </TextAnimate>
         <p className="text-slate-600 dark:text-slate-300 mt-2 md:mt-4 text-sm md:text-xl">
           Real software systems, ERPs, and automation platforms we engineered.
         </p>

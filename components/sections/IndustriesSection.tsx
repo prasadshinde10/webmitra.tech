@@ -121,13 +121,21 @@ export default function IndustriesSection() {
   return (
     <section id="industries" className="relative w-full py-24 bg-slate-50/60 dark:bg-slate-950/40 border-t border-slate-200/80 dark:border-slate-800/80 transition-colors">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-rose-50 dark:bg-rose-950/50 border border-rose-200 dark:border-rose-900 text-xs font-mono text-rose-700 dark:text-rose-300 mb-4 shadow-xs">
-            <span>Industry-Specific Solutions</span>
+        <div className="flex flex-col items-center text-center mb-16">
+          {/* Static category label pinned at the top */}
+          <div className="mb-4">
+            <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-rose-50 dark:bg-rose-950/50 border border-rose-200 dark:border-rose-900 text-xs font-mono font-medium text-rose-700 dark:text-rose-300 shadow-xs select-none">
+              Industry-Specific Solutions
+            </span>
           </div>
-          <TypingAnimation className="text-3xl sm:text-4xl md:text-5xl font-black text-slate-950 dark:text-white mb-4 tracking-tight">
-            Tailored to Your Operational Workflows
-          </TypingAnimation>
+
+          {/* Typing animation heading with stabilized container */}
+          <div className="min-h-[2.5rem] sm:min-h-[3rem] md:min-h-[3.75rem] flex items-center justify-center mb-4">
+            <TypingAnimation className="text-3xl sm:text-4xl md:text-5xl font-black text-slate-950 dark:text-white tracking-tight">
+              Tailored to Your Operational Workflows
+            </TypingAnimation>
+          </div>
+
           <p className="text-slate-600 dark:text-slate-300 max-w-3xl mx-auto text-base sm:text-lg text-balance">
             Every industry has unique workflows, constraints, and operational bottlenecks. We don&apos;t offer one-size-fits-all software. <strong className="text-slate-900 dark:text-white font-semibold">We understand the problem first and engineer the technology around it.</strong>
           </p>

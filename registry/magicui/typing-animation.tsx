@@ -70,7 +70,7 @@ export function TypingAnimation({
       ref={elementRef}
       className={cn('inline-block tracking-tight', className)}
     >
-      {displayedText || (started ? '' : text)}
+      {displayedText || (started ? '\u00A0' : text)}
       {cursor && (
         <span
           className={cn(
