@@ -165,8 +165,8 @@ export function FeatureCard({ id, title, category, tagline, description, tags, m
     <div className="feature-card-wrapper w-full max-w-sm h-80 group perspective-1000 cursor-pointer">
       <div className="feature-card-inner relative w-full h-full duration-700 preserve-3d group-hover:[transform:rotateY(180deg)]">
         
-        {/* Front Face: UI/UX Contextual Design */}
-        <div className="absolute inset-0 w-full h-full backface-hidden rounded-3xl p-6 flex flex-col justify-between backdrop-blur-xl bg-white/90 dark:bg-slate-900/90 border border-slate-200/90 dark:border-slate-800 shadow-[0_10px_30px_-5px_rgba(15,23,42,0.05)] hover:border-rose-300 dark:hover:border-rose-700 transition-all">
+        {/* Front Face: UI/UX Contextual Design with Crisp Contrast & Hover Lift */}
+        <div className="absolute inset-0 w-full h-full backface-hidden rounded-3xl p-6 flex flex-col justify-between backdrop-blur-2xl bg-white dark:bg-slate-900/95 border border-slate-200/90 dark:border-slate-800 shadow-[0_4px_20px_-4px_rgba(15,23,42,0.08),0_1px_3px_rgba(15,23,42,0.05)] hover:border-rose-400/80 dark:hover:border-rose-500/80 hover:shadow-[0_20px_35px_-10px_rgba(244,63,94,0.15)] transition-all duration-300">
           <div>
             <div className="flex items-center justify-between mb-3">
               <div className="w-10 h-10 rounded-2xl bg-slate-100 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 flex items-center justify-center shadow-xs">

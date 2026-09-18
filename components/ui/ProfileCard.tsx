@@ -26,7 +26,7 @@ export function ProfileCard({
     <Backlight blur={35} className="w-full h-full">
       <div
         className={cn(
-          'group relative h-full flex flex-col rounded-3xl overflow-hidden border border-slate-200/90 dark:border-slate-800 bg-white/90 dark:bg-slate-900/90 backdrop-blur-xl shadow-[0_10px_30px_-5px_rgba(15,23,42,0.05)] hover:border-rose-300 dark:hover:border-rose-700/60 transition-all duration-300 hover:shadow-xl hover:-translate-y-1',
+          'group relative h-full flex flex-col rounded-3xl overflow-hidden border border-slate-200/90 dark:border-slate-800 bg-white dark:bg-slate-900/95 backdrop-blur-2xl shadow-[0_4px_20px_-4px_rgba(15,23,42,0.08),0_1px_3px_rgba(15,23,42,0.05)] hover:border-rose-400/80 dark:hover:border-rose-500/80 transition-all duration-300 hover:shadow-[0_20px_40px_-10px_rgba(244,63,94,0.15)] hover:-translate-y-1',
           className
         )}
       >

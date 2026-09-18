@@ -14,6 +14,7 @@ import {
   CheckCircle2
 } from 'lucide-react';
 import { TypingAnimation } from '@/registry/magicui/typing-animation';
+import { Backlight } from '@/registry/magicui/backlight';
 
 const industries = [
   {
@@ -119,8 +120,12 @@ export default function IndustriesSection() {
   const activeIndustry = industries[activeTab];
 
   return (
-    <section id="industries" className="relative w-full py-24 bg-slate-50/60 dark:bg-slate-950/40 border-t border-slate-200/80 dark:border-slate-800/80 transition-colors">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="industries" className="relative w-full py-24 bg-slate-50/60 dark:bg-slate-950/40 border-t border-slate-200/80 dark:border-slate-800/80 transition-colors overflow-hidden">
+      {/* Ambient Atmospheric Background Glows */}
+      <div className="absolute top-1/3 -left-32 w-[500px] h-[500px] bg-gradient-to-tr from-rose-500/10 via-purple-500/10 to-transparent rounded-full blur-3xl pointer-events-none" aria-hidden="true" />
+      <div className="absolute bottom-10 -right-32 w-[500px] h-[500px] bg-gradient-to-bl from-cyan-500/10 via-indigo-500/10 to-transparent rounded-full blur-3xl pointer-events-none" aria-hidden="true" />
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="flex flex-col items-center text-center mb-16">
           {/* Static category label pinned at the top */}
           <div className="mb-4">
@@ -163,46 +168,48 @@ export default function IndustriesSection() {
           })}
         </div>
 
-        {/* Active industry detail card */}
-        <div className="max-w-4xl mx-auto rounded-3xl bg-white dark:bg-slate-900/90 border border-slate-200/90 dark:border-slate-800 p-8 sm:p-12 shadow-xl shadow-slate-200/50 dark:shadow-black/50 relative overflow-hidden backdrop-blur-md">
-          <div className="absolute top-0 right-0 w-96 h-96 bg-rose-500/5 rounded-full blur-3xl pointer-events-none -mr-20 -mt-20" />
-          
-          <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-6 pb-8 border-b border-slate-100 dark:border-slate-800 mb-8">
-            <div className="flex items-center gap-4">
-              <div className="w-14 h-14 rounded-2xl bg-rose-50 dark:bg-rose-950/60 border border-rose-100 dark:border-rose-900 flex items-center justify-center shrink-0 shadow-xs">
-                {React.createElement(activeIndustry.icon, { className: 'w-7 h-7 text-rose-600 dark:text-rose-400' })}
+        {/* Active industry detail card with Backlight Glow and Crisp Contrast */}
+        <Backlight blur={45} className="max-w-4xl mx-auto">
+          <div className="w-full rounded-3xl bg-white dark:bg-slate-900/95 border border-slate-200/90 dark:border-slate-800 p-8 sm:p-12 shadow-[0_10px_35px_-5px_rgba(15,23,42,0.08),0_2px_8px_-2px_rgba(15,23,42,0.04)] relative overflow-hidden backdrop-blur-2xl">
+            <div className="absolute top-0 right-0 w-96 h-96 bg-rose-500/5 rounded-full blur-3xl pointer-events-none -mr-20 -mt-20" />
+            
+            <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-6 pb-8 border-b border-slate-100 dark:border-slate-800 mb-8">
+              <div className="flex items-center gap-4">
+                <div className="w-14 h-14 rounded-2xl bg-rose-50 dark:bg-rose-950/60 border border-rose-100 dark:border-rose-900 flex items-center justify-center shrink-0 shadow-xs">
+                  {React.createElement(activeIndustry.icon, { className: 'w-7 h-7 text-rose-600 dark:text-rose-400' })}
+                </div>
+                <div>
+                  <h3 className="text-2xl sm:text-3xl font-bold text-slate-950 dark:text-white mb-1">
+                    {activeIndustry.name}
+                  </h3>
+                  <p className="text-slate-600 dark:text-slate-300 text-sm sm:text-base">
+                    {activeIndustry.tagline}
+                  </p>
+                </div>
               </div>
-              <div>
-                <h3 className="text-2xl sm:text-3xl font-bold text-slate-950 dark:text-white mb-1">
-                  {activeIndustry.name}
-                </h3>
-                <p className="text-slate-600 dark:text-slate-300 text-sm sm:text-base">
-                  {activeIndustry.tagline}
-                </p>
-              </div>
+
+              <a
+                href="#contact"
+                className="inline-flex items-center gap-2 text-xs sm:text-sm text-rose-600 dark:text-rose-400 font-semibold hover:text-rose-700 dark:hover:text-rose-300 hover:underline self-start md:self-auto"
+              >
+                <span>Discuss {activeIndustry.name} Solution</span>
+                <ArrowRight className="w-4 h-4" />
+              </a>
             </div>
 
-            <a
-              href="#contact"
-              className="inline-flex items-center gap-2 text-xs sm:text-sm text-rose-600 dark:text-rose-400 font-semibold hover:text-rose-700 dark:hover:text-rose-300 hover:underline self-start md:self-auto"
-            >
-              <span>Discuss {activeIndustry.name} Solution</span>
-              <ArrowRight className="w-4 h-4" />
-            </a>
+            <div className="relative z-10 grid grid-cols-1 sm:grid-cols-2 gap-4">
+              {activeIndustry.solutions.map((sol, i) => (
+                <div
+                  key={i}
+                  className="flex items-start gap-3 p-4 rounded-xl bg-slate-50/90 dark:bg-slate-950/60 border border-slate-200/80 dark:border-slate-800 shadow-2xs"
+                >
+                  <CheckCircle2 className="w-5 h-5 text-rose-600 dark:text-rose-400 shrink-0 mt-0.5" />
+                  <span className="text-sm text-slate-800 dark:text-slate-200 leading-snug font-medium">{sol}</span>
+                </div>
+              ))}
+            </div>
           </div>
-
-          <div className="relative z-10 grid grid-cols-1 sm:grid-cols-2 gap-4">
-            {activeIndustry.solutions.map((sol, i) => (
-              <div
-                key={i}
-                className="flex items-start gap-3 p-4 rounded-xl bg-slate-50/80 dark:bg-slate-950/60 border border-slate-200/70 dark:border-slate-800"
-              >
-                <CheckCircle2 className="w-5 h-5 text-rose-600 dark:text-rose-400 shrink-0 mt-0.5" />
-                <span className="text-sm text-slate-800 dark:text-slate-200 leading-snug font-medium">{sol}</span>
-              </div>
-            ))}
-          </div>
-        </div>
+        </Backlight>
       </div>
     </section>
   );
