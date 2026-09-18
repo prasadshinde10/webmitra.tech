@@ -6,22 +6,22 @@ import { ProfileCard } from '../ui/ProfileCard';
 const teamMembers = [
   {
     name: 'Prasad Shinde',
-    role: 'AI Lead Architect Full-Stack Engineer',
-    skills: ['AI Systems Architecture', 'Next.js & MERN', 'Cloud & DevOps', 'Distributed APIs'],
+    role: 'Founder & AI Lead Architect Full-Stack Engineer',
+    skills: ['Data Scientist', 'AI Systems Architecture', 'Next.js & MERN', 'Cloud & DevOps'],
     imageUrl: '/team/prasad.jpg',
     imagePosition: 'object-center',
   },
   {
     name: 'Sanket Dhotre',
-    role: 'AI & UI/UX Designer and App Developer',
-    skills: ['AI UI/UX Design', 'Cross-Platform Apps', 'Design Systems', '60 FPS Frontend'],
+    role: 'Lead Frontend Developer',
+    skills: ['AI UI/UX Design', 'Design Systems', 'Generative AI', 'Cybersecurity', 'Software Tester'],
     imageUrl: '/team/sanket.jpg',
     imagePosition: 'object-top',
   },
   {
     name: 'Chaitanya Mundhe',
-    role: 'AI & MERN Stack Developer',
-    skills: ['AI Model Integrations', 'React & Node.js', 'High-Scale Backend', 'Database Systems'],
+    role: 'Lead Backend Developer',
+    skills: ['Machine Learning', 'React & Node.js', 'High-Scale Backend', 'Database Systems'],
     imageUrl: '/team/chaitanya.jpg',
     imagePosition: 'object-top',
   },

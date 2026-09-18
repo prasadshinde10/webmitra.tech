@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { Menu, X, ArrowUpRight } from 'lucide-react';
 import Image from 'next/image';
 import { ThemeToggle } from './ThemeToggle';
-import { InteractiveHoverButton } from '@/registry/magicui/interactive-hover-button';
+import { RainbowButton } from '@/registry/magicui/rainbow-button';
 
 export function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -72,9 +72,9 @@ export function Navbar() {
         {/* Desktop Actions & Theme Toggle */}
         <div className="hidden md:flex items-center gap-3.5">
           <ThemeToggle />
-          <InteractiveHoverButton href="#contact" className="py-2 px-5 text-xs">
+          <RainbowButton href="#contact" className="h-9 px-5 text-xs">
             Start a Project
-          </InteractiveHoverButton>
+          </RainbowButton>
         </div>
 
         {/* Mobile Actions: Toggle + Hamburger */}
